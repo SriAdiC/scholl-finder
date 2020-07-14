@@ -1,0 +1,44 @@
+a:hover {
+  text-decoration: none;
+}
+
+.sampul{
+  width: 150px;
+}
+
+.table-banding > tbody > tr > td{
+  display: flex;
+}
+
+.table-hover tbody tr:hover{
+  cursor: pointer;
+}
+
+.table-banding{
+  border: 1px solid #e3e6f0;
+}
+
+.biodata h6{
+  color: rgb(35, 146, 184);
+}
+
+.biodata .link-nama{
+  color: lightskyblue;
+  margin-bottom: 15px;
+}
+
+.breadcrumb{
+  background-color: unset;
+}
+
+.form-kriteria{
+  background-color: transparent;
+}
+
+.form-kriteria:focus{
+ background-color: transparent;
+}
+
+.form-jarak{
+  margin-top: 10em;
+}
