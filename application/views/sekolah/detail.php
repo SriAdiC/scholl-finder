@@ -69,7 +69,7 @@
             </table>
             <a href="<?= base_url('sppk/jarak'); ?>" class="btn btn-success mb-5" style="margin-left: 50%; transform: translateX(-50%);">Bandingkan</a>
             <?php if ($this->session->userdata('role_id') == 1) : ?>
-                <a href="#" class="btn btn-warning mb-5">Edit</a>
+                <a href="<?= base_url('sppk/edit/') . $sekolah['id']; ?>" class="btn btn-warning mb-5">Edit</a>
                 <a href="<?= base_url('sppk/delete/') . $sekolah['id']; ?>" class="btn btn-danger mb-5 hapus">Delete</a>
             <?php endif; ?>
         </div>

@@ -54,6 +54,7 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['sppk/banding'] = 'sppk/banding';
+$route['sppk/edit/(:num)'] = 'sppk/edit/$1';
 $route['sppk/jarak'] = 'sppk/jarak';
 $route['sppk/pembobotan'] = 'sppk/pembobotan';
 $route['sppk/delete/(:num)'] = 'sppk/delete/$1';
