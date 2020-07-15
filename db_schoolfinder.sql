@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Jun 2020 pada 07.24
+-- Waktu pembuatan: 15 Jul 2020 pada 06.15
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.3.11
 
@@ -50,6 +50,36 @@ INSERT INTO `ekskul` (`id`, `nama_ekskul`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `jarak`
+--
+
+CREATE TABLE `jarak` (
+  `id` int(11) NOT NULL,
+  `kecamatan` varchar(255) NOT NULL,
+  `jarak` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `jarak`
+--
+
+INSERT INTO `jarak` (`id`, `kecamatan`, `jarak`) VALUES
+(1, 'Kencong', 26),
+(2, 'Gumukmas', 21),
+(3, 'Puger', 16),
+(4, 'Wuluhan', 7),
+(5, 'Ambulu', 13),
+(6, 'Tempurejo', 34),
+(7, 'Silo', 49),
+(8, 'Mayang', 39),
+(9, 'Mumbulsari', 33),
+(10, 'Jenggawah', 12),
+(11, 'Ajung', 23),
+(12, 'Rambipuji', 12);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `jurusan`
 --
 
@@ -83,6 +113,7 @@ CREATE TABLE `sekolah` (
   `id` int(11) NOT NULL,
   `npsn` varchar(50) NOT NULL,
   `nama` varchar(225) NOT NULL,
+  `slug` varchar(255) NOT NULL,
   `akreditasi` varchar(1) NOT NULL,
   `status` enum('NEGERI','SWASTA') NOT NULL,
   `alamat` varchar(225) NOT NULL,
@@ -98,17 +129,17 @@ CREATE TABLE `sekolah` (
 -- Dumping data untuk tabel `sekolah`
 --
 
-INSERT INTO `sekolah` (`id`, `npsn`, `nama`, `akreditasi`, `status`, `alamat`, `kurikulum`, `sarpras`, `website`, `email`, `no_telp`, `foto`) VALUES
-(1, '20523835', 'SMAN BALUNG', 'A', 'NEGERI', 'JL. PB. SUDIRMAN NO. 126', 'Kurikulum 2013', 'Masjid, Arena Olahraga, UKS', 'http://www.sman1balung.sch.id', 'info@sman1balung.sch.id', '0336622577', 'sekolah.jpg'),
-(2, '20523814', 'SMAS BAITUL ARQOM', 'A', 'SWASTA', 'JL. KARANG DUREN NO. 32', 'Kurikulum 2013', '', 'http://www.smabatar.sch.id', 'smabaitularqom1979@gmail.com', '0336621920', 'sekolah1.jpg'),
-(4, '20523838', 'SMAS SATYA DHARMA', 'B', 'SWASTA', 'JL. PUGER 20', 'Kurikulum 2013', '', 'http://smasatyadharmabalungjember.blogspot.com/', 'smasatyadharma77@yahoo.com', '', 'sekolah2.jpg'),
-(5, '69903815', 'SMKS ABDUL AZIZ', 'B', 'SWASTA', 'JL KAKAK TUA NO 17', 'Kurikulum 2013', '', 'http://www.coba.sch.id', 'smkabdaz@gmail.com', '', 'sekolah.jpg'),
-(6, '20566299', 'SMKS AS SALAFI BALUNG', 'C', 'SWASTA', 'JL. PESANTREN KRAJAN BALUNG KIDUL', 'Kurikulum 2013', '', 'http://www.smkassalafi_balung.com', 'smkassalafi_balung@yahoo.com', '', 'sekolah.jpg'),
-(7, '69888724', 'SMKS ASH - SHIDDIQI', 'C', 'SWASTA', 'JL DUSUN KRAJAN KIDUL DESA CURAHLELE', 'Kurikulum 2013', '', 'http://smkashshiddiqijember.blogspot.com', 'smkashshiddiqi@gmail.com', '03313196694', 'sekolah3.jpg'),
-(8, '69830075', 'SMKS BUSTANUL ULUM', 'C', 'SWASTA', 'Jl. Sholehuddin No. 11', 'Kurikulum 2013', '', '', 'smkbustanululumbalung@gmail.com', '', 'SMK_Bustanul_Ulum_Balung_Jember.jpg'),
-(9, '20555091', 'SMKS SUNAN GIRI', 'B', 'SWASTA', 'JL. KH. ABDUL AZIZ NO.78 - BALUNG', 'Kurikulum 2013', '', '', 'Smksunan_giri@yahoo.com', '0336621110', 'sekolah.jpg'),
-(10, '20523758', 'SMKS TEKNOLOGI BALUNG', 'A', 'SWASTA', 'RAMBIPUJI NO.33', 'Kurikulum 2013', 'Lab Praktikum, Masjid, Arena Olahraga, UKS, Perpustakaan', 'https://stmbalung99.wordpress.com/', 'smkt_balung@yahoo.com', '0336622259', 'smk teknologi.jpg'),
-(11, '20583914', 'SMKS ZAINUL HASAN', 'B', 'SWASTA', 'JL. PERJUANGAN NO.10 BALUNG LOR', 'Kurikulum 2013', '', 'http://www.smkzahabalung.wordpress.com', 'zahasmk@gmail.com', '', 'sekolah.jpg');
+INSERT INTO `sekolah` (`id`, `npsn`, `nama`, `slug`, `akreditasi`, `status`, `alamat`, `kurikulum`, `sarpras`, `website`, `email`, `no_telp`, `foto`) VALUES
+(1, '20523835', 'SMAN BALUNG', 'sman-balung', 'A', 'NEGERI', 'JL. PB. SUDIRMAN NO. 126', 'Kurikulum 2013', 'Masjid, Arena Olahraga, UKS', 'http://www.sman1balung.sch.id', 'info@sman1balung.sch.id', '0336622577', 'sekolah.jpg'),
+(2, '20523814', 'SMAS BAITUL ARQOM', 'smas-baitul-arqom', 'A', 'SWASTA', 'JL. KARANG DUREN NO. 32', 'Kurikulum 2013', '', 'http://www.smabatar.sch.id', 'smabaitularqom1979@gmail.com', '0336621920', 'sekolah1.jpg'),
+(4, '20523838', 'SMAS SATYA DHARMA', 'smas-satya-dharma', 'B', 'SWASTA', 'JL. PUGER 20', 'Kurikulum 2013', '', 'http://smasatyadharmabalungjember.blogspot.com/', 'smasatyadharma77@yahoo.com', '', 'sekolah2.jpg'),
+(5, '69903815', 'SMKS ABDUL AZIZ', 'smks-abdulaziz', 'B', 'SWASTA', 'JL KAKAK TUA NO 17', 'Kurikulum 2013', '', 'http://www.coba.sch.id', 'smkabdaz@gmail.com', '', 'sekolah.jpg'),
+(6, '20566299', 'SMKS AS SALAFI BALUNG', 'smks-as-salafi-balung', 'C', 'SWASTA', 'JL. PESANTREN KRAJAN BALUNG KIDUL', 'Kurikulum 2013', '', 'http://www.smkassalafi_balung.com', 'smkassalafi_balung@yahoo.com', '', 'sekolah.jpg'),
+(7, '69888724', 'SMKS ASH - SHIDDIQI', 'smks-ash-shiddiqi', 'C', 'SWASTA', 'JL DUSUN KRAJAN KIDUL DESA CURAHLELE', 'Kurikulum 2013', '', 'http://smkashshiddiqijember.blogspot.com', 'smkashshiddiqi@gmail.com', '03313196694', 'sekolah3.jpg'),
+(8, '69830075', 'SMKS BUSTANUL ULUM', 'smks-bustanul-ulum', 'C', 'SWASTA', 'Jl. Sholehuddin No. 11', 'Kurikulum 2013', '', '', 'smkbustanululumbalung@gmail.com', '', 'SMK_Bustanul_Ulum_Balung_Jember.jpg'),
+(9, '20555091', 'SMKS SUNAN GIRI', 'smks-sunan-giri', 'B', 'SWASTA', 'JL. KH. ABDUL AZIZ NO.78 - BALUNG', 'Kurikulum 2013', '', '', 'Smksunan_giri@yahoo.com', '0336621110', 'sekolah.jpg'),
+(10, '20523758', 'SMKS TEKNOLOGI BALUNG', 'smks-teknologi-balung', 'A', 'SWASTA', 'RAMBIPUJI NO.33', 'Kurikulum 2013', 'Lab Praktikum, Masjid, Arena Olahraga, UKS, Perpustakaan', 'https://stmbalung99.wordpress.com/', 'smkt_balung@yahoo.com', '0336622259', 'smk teknologi.jpg'),
+(11, '20583914', 'SMKS ZAINUL HASAN', 'smks-zainul-hasan', 'B', 'SWASTA', 'JL. PERJUANGAN NO.10 BALUNG LOR', 'Kurikulum 2013', '', 'http://www.smkzahabalung.wordpress.com', 'zahasmk@gmail.com', '', 'sekolah.jpg');
 
 -- --------------------------------------------------------
 
@@ -219,7 +250,8 @@ INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 (6, 3, 2),
 (7, 3, 8),
 (8, 3, 3),
-(10, 1, 10);
+(10, 1, 10),
+(11, 2, 10);
 
 -- --------------------------------------------------------
 
@@ -325,6 +357,12 @@ ALTER TABLE `ekskul`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `jarak`
+--
+ALTER TABLE `jarak`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `jurusan`
 --
 ALTER TABLE `jurusan`
@@ -398,6 +436,12 @@ ALTER TABLE `ekskul`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT untuk tabel `jarak`
+--
+ALTER TABLE `jarak`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
 -- AUTO_INCREMENT untuk tabel `jurusan`
 --
 ALTER TABLE `jurusan`
@@ -431,7 +475,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_menu`
