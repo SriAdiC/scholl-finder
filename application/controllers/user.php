@@ -7,14 +7,16 @@ class user extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+
+        $this->load->model('Sppk_model', 'Sppk');
     }
 
     public function index()
     {
         $data['title'] = 'My Profile';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['pilihan'] = $this->db->count_all('sekolah_pilihan');
-        $data['sklp'] = $this->db->get('sekolah_pilihan')->result_array();
+        $data['pilihan'] = $this->Sppk->countSkl($data['user']['id']);
+        $data['sklp'] = $this->Sppk->getPilihan($data['user']['id']);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -28,7 +30,7 @@ class user extends CI_Controller
         $data['title'] = 'Edit Profile';
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
-        $data['pilihan'] = $this->db->count_all('sekolah_pilihan');
+        $data['pilihan'] = $this->Sppk->countSkl($data['user']['id']);
 
         $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
 
@@ -81,8 +83,8 @@ class user extends CI_Controller
     {
         $data['title'] = 'Change Password';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['pilihan'] = $this->db->count_all('sekolah_pilihan');
-        $data['sklp'] = $this->db->get('sekolah_pilihan')->result_array();
+        $data['pilihan'] = $this->Sppk->countSkl($data['user']['id']);
+        $data['sklp'] = $this->Sppk->getPilihan($data['user']['id']);
 
         $this->form_validation->set_rules('current_password', 'Current Password', 'required|trim');
         $this->form_validation->set_rules('new_password1', 'New Password', 'required|trim|min_length[3]|matches[new_password2]');
@@ -126,8 +128,8 @@ class user extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
         $datauser['user'] = $this->db->get('user')->result_array();
-        $data['pilihan'] = $this->db->count_all('sekolah_pilihan');
-        $data['sklp'] = $this->db->get('sekolah_pilihan')->result_array();
+        $data['pilihan'] = $this->Sppk->countSkl($data['user']['id']);
+        $data['sklp'] = $this->Sppk->getPilihan($data['user']['id']);
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);

@@ -7,15 +7,17 @@ class menu extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+
+        $this->load->model('Sppk_model', 'Sppk');
     }
     public function index()
     {
         $data['title'] = 'Menu Management';
-        $data['sklp'] = $this->db->get('sekolah_pilihan')->result_array();
+        $data['sklp'] = $this->Sppk->getPilihan($data['user']['id']);
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $data['menu'] = $this->db->get('user_menu')->result_array();
-        $data['pilihan'] = $this->db->count_all('sekolah_pilihan');
+        $data['pilihan'] = $this->Sppk->countSkl($data['user']['id']);
 
         $this->form_validation->set_rules('menu', 'Menu', 'required');
 
@@ -43,8 +45,8 @@ class menu extends CI_Controller
         $this->load->model('Menu_model', 'menu');
         $data['menu'] = $this->db->get('user_menu')->result_array();
 
-        $data['pilihan'] = $this->db->count_all('sekolah_pilihan');
-        $data['sklp'] = $this->db->get('sekolah_pilihan')->result_array();
+        $data['pilihan'] = $this->Sppk->countSkl($data['user']['id']);
+        $data['sklp'] = $this->Sppk->getPilihan($data['user']['id']);
         $data['subMenu'] = $this->menu->getSubMenu();
 
         $data['menu'] = $this->db->get('user_menu')->result_array();
@@ -135,11 +137,11 @@ class menu extends CI_Controller
 
     public function hapus($id)
     {
-        $this->db->where('menu_id', $id);
+        $this->db->where('id', $id);
         $this->db->delete('user_sub_menu');
         $this->session->set_flashdata(
             'message',
-            '<div class="alert alert-danger" role="alert">Menu Deleted</div>'
+            '<div class="alert alert-success" role="alert">Menu Deleted</div>'
         );
         redirect('menu/submenu');
     }
@@ -150,7 +152,7 @@ class menu extends CI_Controller
         $this->db->delete('user_menu');
         $this->session->set_flashdata(
             'message',
-            '<div class="alert alert-danger" role="alert">Sub Menu Deleted</div>'
+            '<div class="alert alert-success" role="alert">Sub Menu Deleted</div>'
         );
         redirect('menu/index');
     }
@@ -160,7 +162,7 @@ class menu extends CI_Controller
         $data['title'] = 'Pembobotan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['bobot'] = $this->db->get('bobot')->result_array();
-        $data['pilihan'] = $this->db->count_all('sekolah_pilihan');
+        $data['pilihan'] = $this->Sppk->countSkl($data['user']['id']);
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);

@@ -26,11 +26,7 @@
                             <th scope="col">Status / Akreditasi</th>
                             <th scope="col">Alamat</th>
                             <th scope="col">No.telepon</th>
-
-                            <?php if ($this->session->userdata('role_id') == 1) : ?>
-
-                                <th scope="col">Aksi</th>
-                            <?php endif; ?>
+                            <th scope="col">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>

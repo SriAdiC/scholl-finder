@@ -8,14 +8,16 @@ class admin extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+
+        $this->load->model('Sppk_model', 'Sppk');
     }
 
     public function index()
     {
         $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['pilihan'] = $this->db->count_all('sekolah_pilihan');
-        $data['sklp'] = $this->db->get('sekolah_pilihan')->result_array();
+        $data['pilihan'] = $this->Sppk->countSkl($data['user']['id']);
+        $data['sklp'] = $this->Sppk->getPilihan($data['user']['id']);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -28,8 +30,8 @@ class admin extends CI_Controller
     {
         $data['title'] = 'role';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['pilihan'] = $this->db->count_all('sekolah_pilihan');
-        $data['sklp'] = $this->db->get('sekolah_pilihan')->result_array();
+        $data['pilihan'] = $this->Sppk->countSkl($data['user']['id']);
+        $data['sklp'] = $this->Sppk->getPilihan($data['user']['id']);
         $data['role'] = $this->db->get('user_role')->result_array();
         $this->form_validation->set_rules('role', 'Role', 'required');
         if ($this->form_validation->run() == FALSE) {
@@ -52,8 +54,8 @@ class admin extends CI_Controller
     {
         $data['title'] = 'role Access';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['pilihan'] = $this->db->count_all('sekolah_pilihan');
-        $data['sklp'] = $this->db->get('sekolah_pilihan')->result_array();
+        $data['pilihan'] = $this->Sppk->countSkl($data['user']['id']);
+        $data['sklp'] = $this->Sppk->getPilihan($data['user']['id']);
         $data['role'] = $this->db->get_where('user_role', ['id' => $role_id])->row_array();
         $this->db->where('id !=', 1);
         $data['menu'] = $this->db->get('user_menu')->result_array();

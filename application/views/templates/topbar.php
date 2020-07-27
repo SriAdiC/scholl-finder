@@ -28,7 +28,7 @@
                             Sekolah Pilihan
                         </h6>
                         <?php foreach ($sklp as $s) : ?>
-                            <a class="dropdown-item d-flex align-items-center" href="<?= base_url('sppk/') . $s['slug'] . '?key=' . $s['id']; ?>">
+                            <a class="dropdown-item d-flex align-items-center" href="<?= base_url('sppk/') . $s['slug'] . '?key=' . $s['id_sekolah']; ?>">
                                 <div class="mr-3">
                                     <div class="img-rounded-circle">
                                         <!-- <i class="fas fa-file-alt text-white"></i> -->

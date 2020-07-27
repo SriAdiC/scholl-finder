@@ -50,6 +50,24 @@ class Sppk_model extends CI_Model
         return $query;
     }
 
+    public function getPilihan($id_user)
+    {
+        $this->db->select('*');
+        $this->db->from('sekolah_pilihan');
+        $this->db->join('sekolah', 'sekolah.id = sekolah_pilihan.id_sekolah', 'inner');
+        $this->db->join('user', 'user.id = sekolah_pilihan.id_user', 'inner');
+        $this->db->where('id_user', $id_user);
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+    public function countSkl($id)
+    {
+        $this->db->where('id_user', $id);
+        return $this->db->count_all_results('sekolah_pilihan');
+    }
+
     public function delete($id)
     {
         return $this->db->delete('sekolah', ['id' => $id]);

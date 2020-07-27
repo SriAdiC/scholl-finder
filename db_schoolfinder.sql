@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 27 Jul 2020 pada 09.01
+-- Waktu pembuatan: 27 Jul 2020 pada 11.19
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.3.11
 
@@ -204,19 +204,8 @@ INSERT INTO `sekolah_jurusan` (`id`, `id_sekolah`, `id_jurusan`) VALUES
 --
 
 CREATE TABLE `sekolah_pilihan` (
-  `id` int(11) NOT NULL,
-  `npsn` varchar(50) NOT NULL,
-  `nama` varchar(225) NOT NULL,
-  `slug` varchar(100) NOT NULL,
-  `akreditasi` varchar(1) NOT NULL,
-  `status` enum('NEGERI','SWASTA') NOT NULL,
-  `alamat` varchar(225) NOT NULL,
-  `kurikulum` varchar(100) NOT NULL,
-  `sarpras` text NOT NULL,
-  `website` varchar(100) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `no_telp` char(12) DEFAULT NULL,
-  `foto` varchar(100) NOT NULL,
+  `id_pilih` int(11) NOT NULL,
+  `id_sekolah` int(11) NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -224,10 +213,14 @@ CREATE TABLE `sekolah_pilihan` (
 -- Dumping data untuk tabel `sekolah_pilihan`
 --
 
-INSERT INTO `sekolah_pilihan` (`id`, `npsn`, `nama`, `slug`, `akreditasi`, `status`, `alamat`, `kurikulum`, `sarpras`, `website`, `email`, `no_telp`, `foto`, `id_user`) VALUES
-(1, '20523835', 'SMAN BALUNG', 'sman-balung', 'A', 'NEGERI', 'JL. PB. SUDIRMAN NO. 126', 'Kurikulum 2013', 'Masjid, Arena Olahraga, UKS', 'http://www.sman1balung.sch.id', 'info@sman1balung.sch.id', '0336622577', 'sekolah.jpg', 24),
-(10, '20523758', 'SMKS TEKNOLOGI BALUNG', 'smks-teknologi-balung', 'A', 'SWASTA', 'RAMBIPUJI NO.33', 'Kurikulum 2013', 'Lab Praktikum, Masjid, Arena Olahraga, UKS, Perpustakaan', 'https://stmbalung99.wordpress.com/', 'smkt_balung@yahoo.com', '0336622259', 'smk teknologi.jpg', 24),
-(11, '20583914', 'SMKS ZAINUL HASAN', 'smks-zainul-hasan', 'B', 'SWASTA', 'JL. PERJUANGAN NO.10 BALUNG LOR', 'Kurikulum 2013', '', 'http://www.smkzahabalung.wordpress.com', 'zahasmk@gmail.com', '', 'sekolah.jpg', 24);
+INSERT INTO `sekolah_pilihan` (`id_pilih`, `id_sekolah`, `id_user`) VALUES
+(12, 1, 8),
+(14, 4, 8),
+(15, 6, 8),
+(16, 1, 24),
+(23, 2, 24),
+(27, 4, 24),
+(29, 5, 24);
 
 -- --------------------------------------------------------
 
@@ -425,7 +418,9 @@ ALTER TABLE `sekolah_jurusan`
 -- Indeks untuk tabel `sekolah_pilihan`
 --
 ALTER TABLE `sekolah_pilihan`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_pilih`),
+  ADD KEY `fk_sekolah` (`id_sekolah`),
+  ADD KEY `fk_user` (`id_user`);
 
 --
 -- Indeks untuk tabel `user`
@@ -507,7 +502,7 @@ ALTER TABLE `sekolah_jurusan`
 -- AUTO_INCREMENT untuk tabel `sekolah_pilihan`
 --
 ALTER TABLE `sekolah_pilihan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_pilih` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
@@ -537,7 +532,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT untuk tabel `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_token`
@@ -561,6 +556,13 @@ ALTER TABLE `sekolah_ekskul`
 ALTER TABLE `sekolah_jurusan`
   ADD CONSTRAINT `fk_idJurusan` FOREIGN KEY (`id_jurusan`) REFERENCES `jurusan` (`id_jurusan`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_idSekolah` FOREIGN KEY (`id_sekolah`) REFERENCES `sekolah` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `sekolah_pilihan`
+--
+ALTER TABLE `sekolah_pilihan`
+  ADD CONSTRAINT `fk_sekolah` FOREIGN KEY (`id_sekolah`) REFERENCES `sekolah` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

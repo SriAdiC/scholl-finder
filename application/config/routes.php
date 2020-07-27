@@ -53,6 +53,8 @@ $route['default_controller'] = 'auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+
+$route['sppk/simpanData/(:num)'] = 'sppk/simpanData/$1';
 $route['sppk/banding'] = 'sppk/banding';
 $route['sppk/rekomendasi'] = 'sppk/rekomendasi';
 $route['sppk/edit/(:num)'] = 'sppk/edit/$1';

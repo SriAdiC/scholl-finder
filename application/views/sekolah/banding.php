@@ -14,14 +14,14 @@
       <?php foreach ($sklp as $s) : ?>
         <tr>
           <th scope="row" class="text-center">
-            <a href="<?= base_url('sppk/hapus/') . $s['id'] . '?rkc=' . $range['id']; ?>"><i class="fas fa-times-circle text-secondary"></i></a>
+            <a href="<?= base_url('sppk/hapus/') . $s['id_pilih'] . '?rkc=' . $range['id']; ?>"><i class="fas fa-times-circle text-secondary"></i></a>
           </th>
           <td>
             <div class="col-md-2">
               <img src="<?= base_url('assets/'); ?>img/sekolah/<?= $s['foto']; ?>" alt="sekolah" class="sampul">
             </div>
             <div class="biodata col-md-10">
-              <a href="<?= base_url('sppk/detail/') . $s['id']; ?>">
+              <a href="<?= base_url('sppk/') . $s['slug'] . '?key=' . $s['id_sekolah']; ?>">
                 <h6><?= $s['nama']; ?></h6>
               </a>
               <table class="table">
