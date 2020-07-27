@@ -18,7 +18,7 @@
   </div>
 
   <div class="kriteria col-md-8 offset-2">
-    <form action="" method="POST">
+    <form action="<?= base_url('sppk/pembobotan'); ?>" method="POST">
       <table class="table table-bordered table-sm">
         <thead class="table-secondary text-dark">
           <th scope="col" style="width: 70%">Kriteria</th>

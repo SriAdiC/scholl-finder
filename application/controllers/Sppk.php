@@ -104,6 +104,22 @@ class Sppk extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('sekolah/pembobotan', $data);
         $this->load->view('templates/footer');
+
+        redirect('sppk/rekomendasi');
+    }
+
+    public function rekomendasi()
+    {
+        $data['title'] = 'Pembobotan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['sekolah'] = $this->db->get('sekolah')->result_array();
+
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('sekolah/rekom', $data);
+        $this->load->view('templates/footer');
     }
 
     public function delete($id)

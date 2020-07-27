@@ -63,7 +63,7 @@
   </table>
   <div class="button">
     <a href="<?= base_url('sppk'); ?>" class="btn btn-secondary mb-3">Kembali</a>
-    <a href="<?= base_url('sppk/pembobotan'); ?>" class="btn btn-primary mb-3" style="position: relative; left: 80%;">Mulai Pembobotan</a>
+    <a href="<?= base_url('sppk/pembobotan'); ?>" class="btn btn-primary mb-3" style="position: relative; left: 0;">Mulai Pembobotan</a>
   </div>
 
 </div>

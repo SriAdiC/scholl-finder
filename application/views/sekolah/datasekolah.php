@@ -18,7 +18,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover" id="dataTable">
+                <table class="table table-bordered table-hover">
                     <thead class="bg-dark text-light text-center">
                         <tr>
                             <th scope="col">NPSN</th>
@@ -26,6 +26,11 @@
                             <th scope="col">Status / Akreditasi</th>
                             <th scope="col">Alamat</th>
                             <th scope="col">No.telepon</th>
+
+                            <?php if ($this->session->userdata('role_id') == 1) : ?>
+
+                                <th scope="col">Aksi</th>
+                            <?php endif; ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,6 +41,16 @@
                                 <td><?= $skl['status'] . ' / ' . $skl['akreditasi']; ?></td>
                                 <td><?= $skl['alamat']; ?></td>
                                 <td><?= $skl['no_telp']; ?></td>
+
+                                <?php if ($this->session->userdata('role_id') == 1) : ?>
+
+                                    <td>
+                                        <div class="d-flex">
+                                            <a href="<?= base_url('sppk/edit/') . $skl['id']; ?>" class="btn btn-warning mb-5 mr-2">Edit</a>
+                                            <a href="<?= base_url('sppk/delete/') . $skl['id']; ?>" class="btn btn-danger mb-5 hapus">Delete</a>
+                                        </div>
+                                    </td>
+                                <?php endif; ?>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
