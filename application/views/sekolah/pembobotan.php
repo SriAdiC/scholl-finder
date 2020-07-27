@@ -28,7 +28,7 @@
           <tr>
             <td>Apakah <b>Status/Akreditasi</b> sangat penting bagi anda?</td>
             <td>
-              <select class="form-control form-kriteria form-control-sm">
+              <select class="form-control form-kriteria form-control-sm <?= (form_error('status')) ? 'is-invalid' : '' ?>" name="status">
                 <option value="">-- Pilih Bobot --</option>
                 <option value="5">Sangat Penting</option>
                 <option value="4">Penting</option>
@@ -36,45 +36,57 @@
                 <option value="2">Kurang Penting</option>
                 <option value="1">Tidak Penting</option>
               </select>
+              <div class="invalid-feedback">
+                Mohon pilih salah satu.
+              </div>
             </td>
           </tr>
           <tr>
             <td>Apakah <b>Sarana dan Prasarana</b> sangat penting bagi anda?</td>
             <td>
-              <select class="form-control form-kriteria form-control-sm">
-                <option>-- Pilih Bobot --</option>
-                <option>Sangat Penting</option>
-                <option>Penting</option>
-                <option>Cukup Penting</option>
-                <option>Kurang Penting</option>
-                <option>Tidak Penting</option>
+              <select class="form-control form-kriteria form-control-sm <?= (form_error('sarpras')) ? 'is-invalid' : '' ?>" name="sarpras">
+                <option value="">-- Pilih Bobot --</option>
+                <option value="5">Sangat Penting</option>
+                <option value="4">Penting</option>
+                <option value="3">Cukup Penting</option>
+                <option value="2">Kurang Penting</option>
+                <option value="1">Tidak Penting</option>
               </select>
+              <div class="invalid-feedback">
+                Mohon pilih salah satu.
+              </div>
             </td>
           </tr>
           <tr>
             <td>Apakah <b>Kurikulum</b> sangat penting bagi anda?</td>
             <td>
-              <select class="form-control form-kriteria form-control-sm">
-                <option>-- Pilih Bobot --</option>
-                <option>Sangat Penting</option>
-                <option>Penting</option>
-                <option>Cukup Penting</option>
-                <option>Kurang Penting</option>
-                <option>Tidak Penting</option>
+              <select class="form-control form-kriteria form-control-sm <?= (form_error('kurikulum')) ? 'is-invalid' : '' ?>" name="kurikulum">
+                <option value="">-- Pilih Bobot --</option>
+                <option value="5">Sangat Penting</option>
+                <option value="4">Penting</option>
+                <option value="3">Cukup Penting</option>
+                <option value="2">Kurang Penting</option>
+                <option value="1">Tidak Penting</option>
               </select>
+              <div class="invalid-feedback">
+                Mohon pilih salah satu.
+              </div>
             </td>
           </tr>
           <tr>
             <td>Apakah <b>Jarak</b> sangat penting bagi anda?</td>
             <td>
-              <select class="form-control form-kriteria form-control-sm">
-                <option>-- Pilih Bobot --</option>
-                <option>Sangat Penting</option>
-                <option>Penting</option>
-                <option>Cukup Penting</option>
-                <option>Kurang Penting</option>
-                <option>Tidak Penting</option>
+              <select class="form-control form-kriteria form-control-sm <?= (form_error('jarak')) ? 'is-invalid' : '' ?> " name="jarak">
+                <option value="">-- Pilih Bobot --</option>
+                <option value="5">Sangat Penting</option>
+                <option value="4">Penting</option>
+                <option value="3">Cukup Penting</option>
+                <option value="2">Kurang Penting</option>
+                <option value="1">Tidak Penting</option>
               </select>
+              <div class="invalid-feedback">
+                Mohon pilih salah satu.
+              </div>
             </td>
           </tr>
         </tbody>

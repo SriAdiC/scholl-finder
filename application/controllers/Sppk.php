@@ -147,13 +147,20 @@ class Sppk extends CI_Controller
         $data['pilihan'] = $this->db->count_all('sekolah_pilihan');
         $data['sklp'] = $this->db->get('sekolah_pilihan')->result_array();
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('sekolah/pembobotan', $data);
-        $this->load->view('templates/footer');
+        $this->form_validation->set_rules('status', 'Status', 'required');
+        $this->form_validation->set_rules('kurikulum', 'kurikulum', 'required');
+        $this->form_validation->set_rules('sarpras', 'sarpras', 'required');
+        $this->form_validation->set_rules('jarak', 'jarak', 'required');
 
-        redirect('sppk/rekomendasi');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('sekolah/pembobotan', $data);
+            $this->load->view('templates/footer');
+        } else {
+            redirect('sppk/rekomendasi');
+        }
     }
 
     public function rekomendasi()
