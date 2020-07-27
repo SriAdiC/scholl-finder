@@ -25,7 +25,7 @@ class Sppk extends CI_Controller
         $this->form_validation->set_rules('nama', 'Nama Sekolah', 'required|trim');
         $this->form_validation->set_rules('alamat', 'alamat', 'required|trim');
         $this->form_validation->set_rules('NPSN', 'NPSN', 'required|trim');
-        $this->form_validation->set_rules('email', 'email', 'required|trim|valid_email');
+        // $this->form_validation->set_rules('email', 'email', 'required|trim|valid_email');
         $this->form_validation->set_rules('kurikulum', 'kurikulum', 'required|trim');
 
 
@@ -37,6 +37,8 @@ class Sppk extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $slug = url_title($this->input->post('nama'), '-', TRUE);
+            $sarpras = $this->input->post('check[]');
+            $input = implode(", ", $sarpras);
             $data = [
                 'npsn' => $this->input->post('NPSN'),
                 'nama' => $this->input->post('nama'),
@@ -44,12 +46,16 @@ class Sppk extends CI_Controller
                 'alamat' => $this->input->post('alamat'),
                 'status' => $this->input->post('status'),
                 'akreditasi' => $this->input->post('akreditasi'),
+                'sarpras' => $this->input->post('check'),
                 'kurikulum' => $this->input->post('kurikulum'),
                 'website' => $this->input->post('website'),
                 'email' => $this->input->post('email'),
                 'no_telp' => $this->input->post('no_telp'),
                 'foto' => 'sekolah1.jpg'
             ];
+
+            // var_dump($data);
+            // die;
 
             $this->db->insert('sekolah', $data);
             $this->session->set_flashdata('msg', 'Berhasil Menambah Data');

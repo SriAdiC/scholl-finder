@@ -109,6 +109,69 @@
                                 <option value="Kurikulum 2013">Kurikulum 2013</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="font-weight-bold">Sarana Prasarana</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="Perpustakaan" id="autoSizingCheck2" name="check[]">
+                                        <label class="form-check-label" for="autoSizingCheck2">
+                                            Perpustakaan
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="Lapangan Olahraga" id="autoSizingCheck2" name="check[]">
+                                        <label class="form-check-label" for="autoSizingCheck2">
+                                            Lapangan Olahraga
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="Lab Praktikum" id="autoSizingCheck2" name="check[]">
+                                        <label class="form-check-label" for="autoSizingCheck2">
+                                            Lab Praktikum
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="Ruang Osis" id="autoSizingCheck2" name="check[]">
+                                        <label class="form-check-label" for="autoSizingCheck2">
+                                            Ruang Osis
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="Ruang Ibadah" id="autoSizingCheck2" name="check[]">
+                                        <label class="form-check-label" for="autoSizingCheck2">
+                                            Ruang Ibadah
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="Kantin" id="autoSizingCheck2" name="check[]">
+                                        <label class="form-check-label" for="autoSizingCheck2">
+                                            Kantin
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="Kantor Guru" id="autoSizingCheck2" name="check[]">
+                                        <label class="form-check-label" for="autoSizingCheck2">
+                                            Kantor Guru
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="Kamar Mandi" id="autoSizingCheck2" name="check[]">
+                                        <label class="form-check-label" for="autoSizingCheck2">
+                                            Kamar Mandi
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="Ruang BK" id="autoSizingCheck2" name="check[]">
+                                        <label class="form-check-label" for="autoSizingCheck2">
+                                            Ruang BK
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-lg-12 d-flex">
                             <div class="form-group col-sm-6">
                                 <label for="website">Website</label>
