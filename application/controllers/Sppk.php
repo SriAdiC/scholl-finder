@@ -46,7 +46,7 @@ class Sppk extends CI_Controller
                 'alamat' => $this->input->post('alamat'),
                 'status' => $this->input->post('status'),
                 'akreditasi' => $this->input->post('akreditasi'),
-                'sarpras' => $this->input->post('check'),
+                'sarpras' => $input,
                 'kurikulum' => $this->input->post('kurikulum'),
                 'website' => $this->input->post('website'),
                 'email' => $this->input->post('email'),
