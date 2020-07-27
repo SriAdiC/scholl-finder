@@ -15,6 +15,37 @@
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
 
+                <!-- Nav Item - Alerts -->
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-cart-plus fa-fw"></i>
+                        <!-- Counter - Alerts -->
+                        <span class="badge badge-danger badge-counter"><?= $pilihan; ?></span>
+                    </a>
+                    <!-- Dropdown - Alerts -->
+                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                        <h6 class="dropdown-header">
+                            Sekolah Pilihan
+                        </h6>
+                        <?php foreach ($sklp as $s) : ?>
+                            <a class="dropdown-item d-flex align-items-center" href="<?= base_url('sppk/') . $s['slug'] . '?key=' . $s['id']; ?>">
+                                <div class="mr-3">
+                                    <div class="img-rounded-circle">
+                                        <!-- <i class="fas fa-file-alt text-white"></i> -->
+                                        <img src="<?= base_url('assets/img/sekolah/') . $s['foto']; ?>" alt="foto" width="50">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="small text-gray-500"><?= $s['npsn']; ?></div>
+                                    <span class="font-weight-bold"><?= $s['nama']; ?></span>
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
+
+                        <a class="dropdown-item text-center text-info" href="<?= base_url('sppk/jarak'); ?>">Lanjut Pembobotan</a>
+                    </div>
+                </li>
+
                 <div class="topbar-divider d-none d-sm-block"></div>
 
                 <!-- Nav Item - User Information -->

@@ -2,7 +2,7 @@
 <div class="container-fluid">
 
     <div class="message" data-flashdata="<?= $this->session->flashdata('msg') ?>"></div>
-    <div class="error" data-flashdata="<?= $this->session->flashdata('error'); ?>"></div>
+    <div class="error" data-error="<?= $this->session->flashdata('error'); ?>"></div>
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
@@ -42,15 +42,16 @@
                                 <td><?= $skl['alamat']; ?></td>
                                 <td><?= $skl['no_telp']; ?></td>
 
-                                <?php if ($this->session->userdata('role_id') == 1) : ?>
 
-                                    <td>
-                                        <div class="d-flex">
+                                <td>
+                                    <div class="d-flex">
+                                        <?php if ($this->session->userdata('role_id') == 1) : ?>
                                             <a href="<?= base_url('sppk/edit/') . $skl['id']; ?>" class="btn btn-warning mb-5 mr-2">Edit</a>
                                             <a href="<?= base_url('sppk/delete/') . $skl['id']; ?>" class="btn btn-danger mb-5 hapus">Delete</a>
-                                        </div>
-                                    </td>
-                                <?php endif; ?>
+                                        <?php endif; ?>
+                                        <a href="<?= base_url('sppk/simpanData/') . $skl['id']; ?>" class="btn btn-success mb-5 ml-2">Bandingkan</a>
+                                    </div>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

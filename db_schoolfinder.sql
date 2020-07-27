@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Jul 2020 pada 06.15
+-- Waktu pembuatan: 27 Jul 2020 pada 09.01
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.3.11
 
@@ -200,6 +200,38 @@ INSERT INTO `sekolah_jurusan` (`id`, `id_sekolah`, `id_jurusan`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `sekolah_pilihan`
+--
+
+CREATE TABLE `sekolah_pilihan` (
+  `id` int(11) NOT NULL,
+  `npsn` varchar(50) NOT NULL,
+  `nama` varchar(225) NOT NULL,
+  `slug` varchar(100) NOT NULL,
+  `akreditasi` varchar(1) NOT NULL,
+  `status` enum('NEGERI','SWASTA') NOT NULL,
+  `alamat` varchar(225) NOT NULL,
+  `kurikulum` varchar(100) NOT NULL,
+  `sarpras` text NOT NULL,
+  `website` varchar(100) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `no_telp` char(12) DEFAULT NULL,
+  `foto` varchar(100) NOT NULL,
+  `id_user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `sekolah_pilihan`
+--
+
+INSERT INTO `sekolah_pilihan` (`id`, `npsn`, `nama`, `slug`, `akreditasi`, `status`, `alamat`, `kurikulum`, `sarpras`, `website`, `email`, `no_telp`, `foto`, `id_user`) VALUES
+(1, '20523835', 'SMAN BALUNG', 'sman-balung', 'A', 'NEGERI', 'JL. PB. SUDIRMAN NO. 126', 'Kurikulum 2013', 'Masjid, Arena Olahraga, UKS', 'http://www.sman1balung.sch.id', 'info@sman1balung.sch.id', '0336622577', 'sekolah.jpg', 24),
+(10, '20523758', 'SMKS TEKNOLOGI BALUNG', 'smks-teknologi-balung', 'A', 'SWASTA', 'RAMBIPUJI NO.33', 'Kurikulum 2013', 'Lab Praktikum, Masjid, Arena Olahraga, UKS, Perpustakaan', 'https://stmbalung99.wordpress.com/', 'smkt_balung@yahoo.com', '0336622259', 'smk teknologi.jpg', 24),
+(11, '20583914', 'SMKS ZAINUL HASAN', 'smks-zainul-hasan', 'B', 'SWASTA', 'JL. PERJUANGAN NO.10 BALUNG LOR', 'Kurikulum 2013', '', 'http://www.smkzahabalung.wordpress.com', 'zahasmk@gmail.com', '', 'sekolah.jpg', 24);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `user`
 --
 
@@ -390,6 +422,12 @@ ALTER TABLE `sekolah_jurusan`
   ADD KEY `fk_idJurusan` (`id_jurusan`);
 
 --
+-- Indeks untuk tabel `sekolah_pilihan`
+--
+ALTER TABLE `sekolah_pilihan`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
@@ -464,6 +502,12 @@ ALTER TABLE `sekolah_ekskul`
 --
 ALTER TABLE `sekolah_jurusan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT untuk tabel `sekolah_pilihan`
+--
+ALTER TABLE `sekolah_pilihan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`

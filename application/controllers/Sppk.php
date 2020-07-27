@@ -16,6 +16,8 @@ class Sppk extends CI_Controller
         $data['title'] = 'Data Sekolah';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['sekolah'] = $this->db->get('sekolah')->result_array();
+        $data['pilihan'] = $this->db->count_all('sekolah_pilihan');
+        $data['sklp'] = $this->db->get('sekolah_pilihan')->result_array();
 
         $this->form_validation->set_rules('nama', 'Nama Sekolah', 'required|trim');
         $this->form_validation->set_rules('alamat', 'alamat', 'required|trim');
@@ -54,6 +56,8 @@ class Sppk extends CI_Controller
 
     public function detail($id)
     {
+        $data['pilihan'] = $this->db->count_all('sekolah_pilihan');
+        $data['sklp'] = $this->db->get('sekolah_pilihan')->result_array();
         $id = $this->input->get('key');
         $data['title'] = 'Data Sekolah';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
@@ -76,12 +80,55 @@ class Sppk extends CI_Controller
         }
     }
 
+    public function simpanData($id)
+    {
+        $sekolah = $this->db->get_where('sekolah', ['id' => $id])->row_array();
+        $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $sklp = $this->db->get_where('sekolah_pilihan', ['id' => $id])->row_array();
+
+        $data = [
+            'id' => $id,
+            'nama' => $sekolah['nama'],
+            'npsn' => $sekolah['npsn'],
+            'slug' => $sekolah['slug'],
+            'akreditasi' => $sekolah['akreditasi'],
+            'kurikulum' => $sekolah['kurikulum'],
+            'alamat' => $sekolah['alamat'],
+            'status' => $sekolah['status'],
+            'sarpras' => $sekolah['sarpras'],
+            'website' => $sekolah['website'],
+            'email' => $sekolah['email'],
+            'no_telp' => $sekolah['no_telp'],
+            'foto' => $sekolah['foto'],
+            'id_user' => $user['id']
+        ];
+
+        if ($data['id'] == $sklp['id']) {
+            $this->session->set_flashdata('error', 'Data sudah ada');
+            redirect('sppk');
+        }
+
+        $this->db->insert('sekolah_pilihan', $data);
+        $this->session->set_flashdata('msg', 'Berhasil Menambah Data ke Keranjang');
+        redirect('sppk');
+    }
+
+    public function hapus($id)
+    {
+        $rkc = $this->input->get('rkc');
+        $data['range'] = $this->Sppk->getJarak($rkc);
+
+        $this->db->delete('sekolah_pilihan', ['id' => $id]);
+        redirect('sppk/banding?rkc=' . $data['range']['id']);
+    }
+
     public function banding()
     {
         $data['title'] = 'Data Sekolah';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['sekolah'] = $this->db->get('sekolah')->result_array();
-
+        $data['sekolah'] = $this->db->get('sekolah_pilihan')->result_array();
+        $data['pilihan'] = $this->db->count_all('sekolah_pilihan');
+        $data['sklp'] = $this->db->get('sekolah_pilihan')->result_array();
         $id = $this->input->get('rkc');
         $data['range'] = $this->Sppk->getJarak($id);
 
@@ -97,7 +144,8 @@ class Sppk extends CI_Controller
     {
         $data['title'] = 'Pembobotan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-
+        $data['pilihan'] = $this->db->count_all('sekolah_pilihan');
+        $data['sklp'] = $this->db->get('sekolah_pilihan')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -113,7 +161,8 @@ class Sppk extends CI_Controller
         $data['title'] = 'Pembobotan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['sekolah'] = $this->db->get('sekolah')->result_array();
-
+        $data['pilihan'] = $this->db->count_all('sekolah_pilihan');
+        $data['sklp'] = $this->db->get('sekolah_pilihan')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -136,6 +185,7 @@ class Sppk extends CI_Controller
         $data['sekolah'] = $this->db->get_where('sekolah', ['id' => $id])->row_array();
 
         $data['jurusan'] = $this->Sppk->getDataJurusan($id);
+        $data['sklp'] = $this->db->get('sekolah_pilihan')->result_array();
 
         $data['range'] = $this->Sppk->getJarak();
 
@@ -209,6 +259,8 @@ class Sppk extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['sekolah'] = $this->db->get('sekolah')->result_array();
         $data['jarak'] = $this->Sppk->getJarak();
+        $data['pilihan'] = $this->db->count_all('sekolah_pilihan');
+        $data['sklp'] = $this->db->get('sekolah_pilihan')->result_array();
 
         // var_dump($data['jarak']);
         // die;

@@ -11,9 +11,11 @@ class menu extends CI_Controller
     public function index()
     {
         $data['title'] = 'Menu Management';
+        $data['sklp'] = $this->db->get('sekolah_pilihan')->result_array();
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $data['menu'] = $this->db->get('user_menu')->result_array();
+        $data['pilihan'] = $this->db->count_all('sekolah_pilihan');
 
         $this->form_validation->set_rules('menu', 'Menu', 'required');
 
@@ -41,6 +43,8 @@ class menu extends CI_Controller
         $this->load->model('Menu_model', 'menu');
         $data['menu'] = $this->db->get('user_menu')->result_array();
 
+        $data['pilihan'] = $this->db->count_all('sekolah_pilihan');
+        $data['sklp'] = $this->db->get('sekolah_pilihan')->result_array();
         $data['subMenu'] = $this->menu->getSubMenu();
 
         $data['menu'] = $this->db->get('user_menu')->result_array();
@@ -150,11 +154,13 @@ class menu extends CI_Controller
         );
         redirect('menu/index');
     }
+
     public function bobot()
     {
         $data['title'] = 'Pembobotan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['bobot'] = $this->db->get('bobot')->result_array();
+        $data['pilihan'] = $this->db->count_all('sekolah_pilihan');
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);

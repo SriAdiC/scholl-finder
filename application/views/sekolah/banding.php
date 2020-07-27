@@ -6,17 +6,15 @@
   <table class="table table-banding">
     <thead class="bg bg-gray-200">
       <tr>
-        <th scope="col" style="width: 10%;" class="text-center">Pilih</th>
+        <th scope="col" style="width: 10%;" class="text-center">Hapus</th>
         <th scope="col">Pilihan Sekolah</th>
       </tr>
     </thead>
     <tbody>
-      <?php foreach ($sekolah as $s) : ?>
+      <?php foreach ($sklp as $s) : ?>
         <tr>
           <th scope="row" class="text-center">
-            <div class="form-check">
-              <input class="form-check-input position-static" type="checkbox" id="pilih" name="sekolah_id[]" value="<?= $s['id']; ?>">
-            </div>
+            <a href="<?= base_url('sppk/hapus/') . $s['id'] . '?rkc=' . $range['id']; ?>"><i class="fas fa-times-circle text-secondary"></i></a>
           </th>
           <td>
             <div class="col-md-2">

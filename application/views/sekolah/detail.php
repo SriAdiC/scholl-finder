@@ -67,7 +67,7 @@
                     </td>
                 </tr>
             </table>
-            <a href="<?= base_url('sppk/jarak'); ?>" class="btn btn-success mb-5" style="margin-left: 50%; transform: translateX(-50%);">Bandingkan</a>
+            <a href="<?= base_url('sppk/simpanData/') . $sekolah['id']; ?>" class="btn btn-success mb-5" style="margin-left: 50%; transform: translateX(-50%);">Bandingkan</a>
         </div>
     </div>
 

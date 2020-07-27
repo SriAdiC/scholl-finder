@@ -16,3 +16,13 @@ if (data) {
         type: 'success'
     })
 }
+
+const error = $('.error').data('error');
+
+if (error) {
+    Swal.fire({
+        title: 'Oppss!',
+        text: error,
+        type: 'error'
+    })
+}
