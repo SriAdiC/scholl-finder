@@ -39,24 +39,31 @@ class Sppk_model extends CI_Model
         return $query->result_array();
     }
 
-    public function getJarak($id = null)
+    public function getJarak($id)
     {
-        if ($id != null) {
-            $query = $this->db->get_where('jarak', ['id' => $id])->row_array();
-        } else {
-            $query = $this->db->get('jarak')->result_array();
-        }
+        // if ($id != null) {
+        //     $query = $this->db->get_where('jarak', ['id' => $id])->row_array();
+        // } else {
+        //     $query = $this->db->get('jarak')->result_array();
+        // }
+        $this->db->select('*');
+        $this->db->from('user');
+        $this->db->join('jarak', 'jarak.id = user.jarak', 'inner');
+        $this->db->where('user.id', $id);
+        $query = $this->db->get();
 
-        return $query;
+        return $query->row_array();
     }
 
     public function getPilihan($id_user)
     {
         $this->db->select('*');
         $this->db->from('sekolah_pilihan');
-        $this->db->join('sekolah', 'sekolah.id = sekolah_pilihan.id_sekolah', 'inner');
+        $this->db->join('sekolah', 'sekolah.id_sekolah = sekolah_pilihan.id_sekolah', 'inner');
         $this->db->join('user', 'user.id = sekolah_pilihan.id_user', 'inner');
+        $this->db->join('jarak', 'jarak.id_jarak = user.jarak', 'inner');
         $this->db->where('id_user', $id_user);
+        $this->db->order_by('sekolah_pilihan.id_pilih', 'ASC');
         $query = $this->db->get();
 
         return $query->result_array();
@@ -71,5 +78,65 @@ class Sppk_model extends CI_Model
     public function delete($id)
     {
         return $this->db->delete('sekolah', ['id' => $id]);
+    }
+
+    public function standar($id_standar)
+    {
+        return $this->db->get_where('standart_kualitatif', ['id_standart' => $id_standar])->row_array();
+    }
+
+    public function maxStatus($id_user)
+    {
+        $query = "SELECT s.status FROM sekolah s, sekolah_pilihan t WHERE t.id_sekolah = s.id_sekolah AND id_user = '$id_user' ORDER BY s.status DESC LIMIT 1";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function maxAkreditasi($id_user)
+    {
+        $query = "SELECT s.skor_akreditasi FROM sekolah s, sekolah_pilihan t WHERE t.id_sekolah = s.id_sekolah AND id_user = '$id_user' ORDER BY s.skor_akreditasi DESC LIMIT 1";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function maxKurikulum($id_user)
+    {
+        $query = "SELECT s.kurikulum FROM sekolah s, sekolah_pilihan t WHERE t.id_sekolah = s.id_sekolah AND id_user = '$id_user' ORDER BY s.kurikulum DESC LIMIT 1";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function maxJarak()
+    {
+        $query = "SELECT jarak FROM jarak ORDER BY jarak DESC LIMIT 1";
+        return $this->db->query($query)->row_array();
+    }
+
+
+    public function minKurikulum($id_user)
+    {
+        $query = "SELECT s.kurikulum FROM sekolah s, sekolah_pilihan t WHERE t.id_sekolah = s.id_sekolah AND id_user = '$id_user' ORDER BY s.kurikulum ASC LIMIT 1";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function minStatus($id_user)
+    {
+        $query = "SELECT s.status FROM sekolah s, sekolah_pilihan t WHERE t.id_sekolah = s.id_sekolah AND id_user = '$id_user' ORDER BY s.status ASC LIMIT 1";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function minAkreditasi($id_user)
+    {
+        $query = "SELECT s.skor_akreditasi FROM sekolah s, sekolah_pilihan t WHERE t.id_sekolah = s.id_sekolah AND id_user = '$id_user' ORDER BY s.skor_akreditasi ASC LIMIT 1";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function minJarak()
+    {
+        $query = "SELECT jarak FROM jarak ORDER BY jarak ASC LIMIT 1";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function alternatif($id_user)
+    {
+        $this->db->where('id_user', $id_user);
+        return $this->db->count_all_results('sekolah_pilihan');
     }
 }

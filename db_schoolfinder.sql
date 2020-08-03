@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 27 Jul 2020 pada 11.19
+-- Waktu pembuatan: 03 Agu 2020 pada 06.26
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.3.11
 
@@ -50,11 +50,25 @@ INSERT INTO `ekskul` (`id`, `nama_ekskul`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `hasil_muat`
+--
+
+CREATE TABLE `hasil_muat` (
+  `id_muat` int(11) NOT NULL,
+  `id_sekolah` int(11) NOT NULL,
+  `id_cart` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `nilai` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `jarak`
 --
 
 CREATE TABLE `jarak` (
-  `id` int(11) NOT NULL,
+  `id_jarak` int(11) NOT NULL,
   `kecamatan` varchar(255) NOT NULL,
   `jarak` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -63,7 +77,7 @@ CREATE TABLE `jarak` (
 -- Dumping data untuk tabel `jarak`
 --
 
-INSERT INTO `jarak` (`id`, `kecamatan`, `jarak`) VALUES
+INSERT INTO `jarak` (`id_jarak`, `kecamatan`, `jarak`) VALUES
 (1, 'Kencong', 26),
 (2, 'Gumukmas', 21),
 (3, 'Puger', 16),
@@ -110,15 +124,17 @@ INSERT INTO `jurusan` (`id_jurusan`, `nama_jurusan`) VALUES
 --
 
 CREATE TABLE `sekolah` (
-  `id` int(11) NOT NULL,
+  `id_sekolah` int(11) NOT NULL,
   `npsn` varchar(50) NOT NULL,
   `nama` varchar(225) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `akreditasi` varchar(1) NOT NULL,
-  `status` enum('NEGERI','SWASTA') NOT NULL,
+  `skor_akreditasi` int(11) NOT NULL,
+  `status` int(1) NOT NULL,
   `alamat` varchar(225) NOT NULL,
   `kurikulum` varchar(100) NOT NULL,
   `sarpras` text NOT NULL,
+  `ketersediaanSarpras` int(50) NOT NULL,
   `website` varchar(100) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `no_telp` char(12) DEFAULT NULL,
@@ -129,17 +145,19 @@ CREATE TABLE `sekolah` (
 -- Dumping data untuk tabel `sekolah`
 --
 
-INSERT INTO `sekolah` (`id`, `npsn`, `nama`, `slug`, `akreditasi`, `status`, `alamat`, `kurikulum`, `sarpras`, `website`, `email`, `no_telp`, `foto`) VALUES
-(1, '20523835', 'SMAN BALUNG', 'sman-balung', 'A', 'NEGERI', 'JL. PB. SUDIRMAN NO. 126', 'Kurikulum 2013', 'Masjid, Arena Olahraga, UKS', 'http://www.sman1balung.sch.id', 'info@sman1balung.sch.id', '0336622577', 'sekolah.jpg'),
-(2, '20523814', 'SMAS BAITUL ARQOM', 'smas-baitul-arqom', 'A', 'SWASTA', 'JL. KARANG DUREN NO. 32', 'Kurikulum 2013', '', 'http://www.smabatar.sch.id', 'smabaitularqom1979@gmail.com', '0336621920', 'sekolah1.jpg'),
-(4, '20523838', 'SMAS SATYA DHARMA', 'smas-satya-dharma', 'B', 'SWASTA', 'JL. PUGER 20', 'Kurikulum 2013', '', 'http://smasatyadharmabalungjember.blogspot.com/', 'smasatyadharma77@yahoo.com', '', 'sekolah2.jpg'),
-(5, '69903815', 'SMKS ABDUL AZIZ', 'smks-abdulaziz', 'B', 'SWASTA', 'JL KAKAK TUA NO 17', 'Kurikulum 2013', '', 'http://www.coba.sch.id', 'smkabdaz@gmail.com', '', 'sekolah.jpg'),
-(6, '20566299', 'SMKS AS SALAFI BALUNG', 'smks-as-salafi-balung', 'C', 'SWASTA', 'JL. PESANTREN KRAJAN BALUNG KIDUL', 'Kurikulum 2013', '', 'http://www.smkassalafi_balung.com', 'smkassalafi_balung@yahoo.com', '', 'sekolah.jpg'),
-(7, '69888724', 'SMKS ASH - SHIDDIQI', 'smks-ash-shiddiqi', 'C', 'SWASTA', 'JL DUSUN KRAJAN KIDUL DESA CURAHLELE', 'Kurikulum 2013', '', 'http://smkashshiddiqijember.blogspot.com', 'smkashshiddiqi@gmail.com', '03313196694', 'sekolah3.jpg'),
-(8, '69830075', 'SMKS BUSTANUL ULUM', 'smks-bustanul-ulum', 'C', 'SWASTA', 'Jl. Sholehuddin No. 11', 'Kurikulum 2013', '', '', 'smkbustanululumbalung@gmail.com', '', 'SMK_Bustanul_Ulum_Balung_Jember.jpg'),
-(9, '20555091', 'SMKS SUNAN GIRI', 'smks-sunan-giri', 'B', 'SWASTA', 'JL. KH. ABDUL AZIZ NO.78 - BALUNG', 'Kurikulum 2013', '', '', 'Smksunan_giri@yahoo.com', '0336621110', 'sekolah.jpg'),
-(10, '20523758', 'SMKS TEKNOLOGI BALUNG', 'smks-teknologi-balung', 'A', 'SWASTA', 'RAMBIPUJI NO.33', 'Kurikulum 2013', 'Lab Praktikum, Masjid, Arena Olahraga, UKS, Perpustakaan', 'https://stmbalung99.wordpress.com/', 'smkt_balung@yahoo.com', '0336622259', 'smk teknologi.jpg'),
-(11, '20583914', 'SMKS ZAINUL HASAN', 'smks-zainul-hasan', 'B', 'SWASTA', 'JL. PERJUANGAN NO.10 BALUNG LOR', 'Kurikulum 2013', '', 'http://www.smkzahabalung.wordpress.com', 'zahasmk@gmail.com', '', 'sekolah.jpg');
+INSERT INTO `sekolah` (`id_sekolah`, `npsn`, `nama`, `slug`, `akreditasi`, `skor_akreditasi`, `status`, `alamat`, `kurikulum`, `sarpras`, `ketersediaanSarpras`, `website`, `email`, `no_telp`, `foto`) VALUES
+(1, '20523835', 'SMAN BALUNG', 'sman-balung', 'A', 5, 5, 'JL. PB. SUDIRMAN NO. 126', '5', 'Masjid, Arena Olahraga, UKS', 3, 'http://www.sman1balung.sch.id', 'info@sman1balung.sch.id', '0336622577', 'sekolah.jpg'),
+(2, '20523814', 'SMAS BAITUL ARQOM', 'smas-baitul-arqom', 'A', 5, 3, 'JL. KARANG DUREN NO. 32', '5', '', 5, 'http://www.smabatar.sch.id', 'smabaitularqom1979@gmail.com', '0336621920', 'sekolah1.jpg'),
+(4, '20523838', 'SMAS SATYA DHARMA', 'smas-satya-dharma', 'B', 4, 3, 'JL. PUGER 20', '5', '', 5, 'http://smasatyadharmabalungjember.blogspot.com/', 'smasatyadharma77@yahoo.com', '', 'sekolah2.jpg'),
+(5, '69903815', 'SMKS ABDUL AZIZ', 'smks-abdulaziz', 'B', 4, 3, 'JL KAKAK TUA NO 17', '3', '', 5, 'http://www.coba.sch.id', 'smkabdaz@gmail.com', '', 'sekolah.jpg'),
+(6, '20566299', 'SMKS AS SALAFI BALUNG', 'smks-as-salafi-balung', 'C', 3, 3, 'JL. PESANTREN KRAJAN BALUNG KIDUL', '5', '', 5, 'http://www.smkassalafi_balung.com', 'smkassalafi_balung@yahoo.com', '', 'sekolah.jpg'),
+(7, '69888724', 'SMKS ASH - SHIDDIQI', 'smks-ash-shiddiqi', 'C', 3, 3, 'JL DUSUN KRAJAN KIDUL DESA CURAHLELE', '3', '', 5, 'http://smkashshiddiqijember.blogspot.com', 'smkashshiddiqi@gmail.com', '03313196694', 'sekolah3.jpg'),
+(8, '69830075', 'SMKS BUSTANUL ULUM', 'smks-bustanul-ulum', 'C', 3, 3, 'Jl. Sholehuddin No. 11', '3', '', 5, '', 'smkbustanululumbalung@gmail.com', '', 'SMK_Bustanul_Ulum_Balung_Jember.jpg'),
+(9, '20555091', 'SMKS SUNAN GIRI', 'smks-sunan-giri', 'B', 2, 3, 'JL. KH. ABDUL AZIZ NO.78 - BALUNG', '5', '', 5, '', 'Smksunan_giri@yahoo.com', '0336621110', 'sekolah.jpg'),
+(10, '20523758', 'SMKS TEKNOLOGI BALUNG', 'smks-teknologi-balung', 'A', 5, 3, 'RAMBIPUJI NO.33', '5', 'Lab Praktikum, Masjid, Arena Olahraga, UKS, Perpustakaan', 1, 'https://stmbalung99.wordpress.com/', 'smkt_balung@yahoo.com', '0336622259', 'smk teknologi.jpg'),
+(11, '20583914', 'SMKS ZAINUL HASAN', 'smks-zainul-hasan', 'B', 4, 3, 'JL. PERJUANGAN NO.10 BALUNG LOR', '3', '', 5, 'http://www.smkzahabalung.wordpress.com', 'zahasmk@gmail.com', '', 'sekolah.jpg'),
+(15, '4143412', 'Sri Adi Cahyono', 'sri-adi-cahyono', 'A', 5, 3, 'JL. KARANG DUREN NO. 32', '5', 'Perpustakaan, Lapangan Olahraga, Lab Praktikum, Ruang Osis, Ruang Ibadah, Kantin, Kantor Guru', 1, '', '', '', 'sekolah1.jpg'),
+(16, '12324342', 'Sri Adi Cahyono', 'sri-adi-cahyono', 'B', 4, 3, 'JL. KARANG DUREN NO. 32', '3', 'Perpustakaan, Lapangan Olahraga, Lab Praktikum', 2, '', '', '', 'sekolah1.jpg');
 
 -- --------------------------------------------------------
 
@@ -217,10 +235,31 @@ INSERT INTO `sekolah_pilihan` (`id_pilih`, `id_sekolah`, `id_user`) VALUES
 (12, 1, 8),
 (14, 4, 8),
 (15, 6, 8),
-(16, 1, 24),
-(23, 2, 24),
-(27, 4, 24),
-(29, 5, 24);
+(30, 1, 24),
+(32, 2, 24);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `standart_kualitatif`
+--
+
+CREATE TABLE `standart_kualitatif` (
+  `id_standart` int(11) NOT NULL,
+  `nama_standart` varchar(225) NOT NULL,
+  `skor` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `standart_kualitatif`
+--
+
+INSERT INTO `standart_kualitatif` (`id_standart`, `nama_standart`, `skor`) VALUES
+(1, 'Sangat Baik', 5),
+(2, 'Baik', 4),
+(3, 'Cukup', 3),
+(4, 'Tidak Baik', 2),
+(5, 'Sangat Tidak Baik', 1);
 
 -- --------------------------------------------------------
 
@@ -234,6 +273,7 @@ CREATE TABLE `user` (
   `email` varchar(128) NOT NULL,
   `image` varchar(128) NOT NULL,
   `password` varchar(256) NOT NULL,
+  `jarak` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
   `is_active` int(1) NOT NULL,
   `date_created` int(11) NOT NULL
@@ -243,12 +283,13 @@ CREATE TABLE `user` (
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `email`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
-(7, 'faruk goodboy', 'farukhgoodboy2@gmail.com', 'aku.jpg', '$2y$10$eyebgAWywcJgV.nHdbZSjea8sxamq4PTpgFny9eZRBL0z7/owM7LC', 1, 1, 1564548722),
-(8, 'fauzi', 'deimon.fauzi7@gmail.com', 'default.png', '$2y$10$5OD21o4kPBacLbefS2KLI.EyYKJq.XBmYFPtVtxiYW5d2Y2q4vjJ.', 2, 1, 1564619378),
-(17, 'farel', 'farukhajjah@gmail.com', 'guest2.png', '$2y$10$oDGu0ni3PtXuGmDlXQ8tc.UPNRjj1L3BdpqKSlEdbEYcUyKOV0mwm', 2, 1, 1567662554),
-(23, 'aku', 'faruksmkn8@gmail.com', 'default.jpg', '$2y$10$T9qQ6N6gDLcxKm0MS3wY/u5u7S6QPEyi55dcmW40Q5sWGCIkObXQW', 2, 0, 1569480266),
-(24, 'Sri Adi Cahyono', '21sacah002@gmail.com', 'compress.jpg', '$2y$10$OtvV0FPSnDRUZJkmaoX14Ogij./wya783SNlJj1tp.XT4WYdLbMIi', 1, 1, 1591677139);
+INSERT INTO `user` (`id`, `name`, `email`, `image`, `password`, `jarak`, `role_id`, `is_active`, `date_created`) VALUES
+(7, 'faruk goodboy', 'farukhgoodboy2@gmail.com', 'aku.jpg', '$2y$10$eyebgAWywcJgV.nHdbZSjea8sxamq4PTpgFny9eZRBL0z7/owM7LC', 1, 1, 1, 1564548722),
+(8, 'fauzi', 'deimon.fauzi7@gmail.com', 'default.png', '$2y$10$5OD21o4kPBacLbefS2KLI.EyYKJq.XBmYFPtVtxiYW5d2Y2q4vjJ.', 1, 2, 1, 1564619378),
+(17, 'farel', 'farukhajjah@gmail.com', 'guest2.png', '$2y$10$oDGu0ni3PtXuGmDlXQ8tc.UPNRjj1L3BdpqKSlEdbEYcUyKOV0mwm', 1, 2, 1, 1567662554),
+(23, 'aku', 'faruksmkn8@gmail.com', 'default.jpg', '$2y$10$T9qQ6N6gDLcxKm0MS3wY/u5u7S6QPEyi55dcmW40Q5sWGCIkObXQW', 1, 2, 0, 1569480266),
+(24, 'Sri Adi Cahyono', '21sacah002@gmail.com', 'compress.jpg', '$2y$10$OtvV0FPSnDRUZJkmaoX14Ogij./wya783SNlJj1tp.XT4WYdLbMIi', 3, 1, 1, 1591677139),
+(25, 'Sri Adi Cahyono', 'JohnDoe@gmail.com', 'default.jpg', '$2y$10$5oCbmIrDZWxkJMVbE2kDHOO5QDDR6ckDurqUbluzu/PXxWHdlwxgm', 2, 2, 0, 1596110632);
 
 -- --------------------------------------------------------
 
@@ -382,10 +423,17 @@ ALTER TABLE `ekskul`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `hasil_muat`
+--
+ALTER TABLE `hasil_muat`
+  ADD PRIMARY KEY (`id_muat`),
+  ADD KEY `fk_pilih` (`id_cart`);
+
+--
 -- Indeks untuk tabel `jarak`
 --
 ALTER TABLE `jarak`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_jarak`);
 
 --
 -- Indeks untuk tabel `jurusan`
@@ -397,7 +445,8 @@ ALTER TABLE `jurusan`
 -- Indeks untuk tabel `sekolah`
 --
 ALTER TABLE `sekolah`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_sekolah`),
+  ADD KEY `fk_standar` (`ketersediaanSarpras`);
 
 --
 -- Indeks untuk tabel `sekolah_ekskul`
@@ -423,10 +472,17 @@ ALTER TABLE `sekolah_pilihan`
   ADD KEY `fk_user` (`id_user`);
 
 --
+-- Indeks untuk tabel `standart_kualitatif`
+--
+ALTER TABLE `standart_kualitatif`
+  ADD PRIMARY KEY (`id_standart`);
+
+--
 -- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_jarak` (`jarak`);
 
 --
 -- Indeks untuk tabel `user_access_menu`
@@ -469,10 +525,16 @@ ALTER TABLE `ekskul`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT untuk tabel `hasil_muat`
+--
+ALTER TABLE `hasil_muat`
+  MODIFY `id_muat` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `jarak`
 --
 ALTER TABLE `jarak`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_jarak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `jurusan`
@@ -484,7 +546,7 @@ ALTER TABLE `jurusan`
 -- AUTO_INCREMENT untuk tabel `sekolah`
 --
 ALTER TABLE `sekolah`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_sekolah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `sekolah_ekskul`
@@ -502,13 +564,19 @@ ALTER TABLE `sekolah_jurusan`
 -- AUTO_INCREMENT untuk tabel `sekolah_pilihan`
 --
 ALTER TABLE `sekolah_pilihan`
-  MODIFY `id_pilih` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_pilih` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT untuk tabel `standart_kualitatif`
+--
+ALTER TABLE `standart_kualitatif`
+  MODIFY `id_standart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_access_menu`
@@ -545,6 +613,18 @@ ALTER TABLE `user_token`
 --
 
 --
+-- Ketidakleluasaan untuk tabel `hasil_muat`
+--
+ALTER TABLE `hasil_muat`
+  ADD CONSTRAINT `fk_pilih` FOREIGN KEY (`id_cart`) REFERENCES `sekolah_pilihan` (`id_pilih`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `sekolah`
+--
+ALTER TABLE `sekolah`
+  ADD CONSTRAINT `fk_standar` FOREIGN KEY (`ketersediaanSarpras`) REFERENCES `standart_kualitatif` (`id_standart`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Ketidakleluasaan untuk tabel `sekolah_ekskul`
 --
 ALTER TABLE `sekolah_ekskul`
@@ -555,14 +635,20 @@ ALTER TABLE `sekolah_ekskul`
 --
 ALTER TABLE `sekolah_jurusan`
   ADD CONSTRAINT `fk_idJurusan` FOREIGN KEY (`id_jurusan`) REFERENCES `jurusan` (`id_jurusan`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_idSekolah` FOREIGN KEY (`id_sekolah`) REFERENCES `sekolah` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_idSekolah` FOREIGN KEY (`id_sekolah`) REFERENCES `sekolah` (`id_sekolah`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `sekolah_pilihan`
 --
 ALTER TABLE `sekolah_pilihan`
-  ADD CONSTRAINT `fk_sekolah` FOREIGN KEY (`id_sekolah`) REFERENCES `sekolah` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_sekolah` FOREIGN KEY (`id_sekolah`) REFERENCES `sekolah` (`id_sekolah`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `fk_jarak` FOREIGN KEY (`jarak`) REFERENCES `jarak` (`id_jarak`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

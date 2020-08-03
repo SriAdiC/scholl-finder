@@ -7,6 +7,7 @@ class auth extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
+        $this->load->model('Sppk_model', 'Sppk');
     }
     public function index()
     {
@@ -74,10 +75,11 @@ class auth extends CI_Controller
     }
     public function registration()
     {
+        $data['jarak'] = $this->Sppk->getJarak();
         if ($this->session->userdata('email')) {
             redirect('user');
         }
-        $this->form_validation->set_rules('email', 'email', 'required|trim');
+        $this->form_validation->set_rules('name', 'Name', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
             'is_unique' => 'This email already registered!'
         ]);
@@ -98,15 +100,17 @@ class auth extends CI_Controller
 
             $data['title'] = 'WPU User Registration';
             $this->load->view('templates/auth_header', $data);
-            $this->load->view('auth/registration');
+            $this->load->view('auth/registration', $data);
             $this->load->view('templates/auth_footer');
         } else {
             $email = $this->input->post('email', true);
+            $jarak = $this->input->post('jarak');
             $data = [
                 'name' => htmlspecialchars($this->input->post('name', true)),
                 'email' => htmlspecialchars($email),
                 'image' => 'default.jpg',
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+                'jarak' => $jarak,
                 'role_id' => 2,
                 'is_active' => 0,
                 'date_created' => time()
@@ -115,17 +119,17 @@ class auth extends CI_Controller
             ];
 
             //token lek
-            $token = base64_encode(random_bytes(32));
-            $user_token = [
-                'email' => $email,
-                'token' => $token,
-                'date_created' => time()
-            ];
+            // $token = base64_encode(random_bytes(32));
+            // $user_token = [
+            //     'email' => $email,
+            //     'token' => $token,
+            //     'date_created' => time()
+            // ];
 
             $this->db->insert('user', $data);
-            $this->db->insert('user_token', $user_token);
+            // $this->db->insert('user_token', $user_token);
 
-            $this->_sendEmail($token, 'verify');
+            // $this->_sendEmail($token, 'verify');
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Congratulations!your account has been created. Please Activate your Account</div>');
             redirect('auth');

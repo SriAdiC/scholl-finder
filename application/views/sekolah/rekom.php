@@ -1,6 +1,5 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
-
     <div class="message" data-flashdata="<?= $this->session->flashdata('msg') ?>"></div>
     <div class="error" data-flashdata="<?= $this->session->flashdata('error'); ?>"></div>
 
@@ -37,6 +36,9 @@
         </div>
     </div>
 
+    <div class="position-relative">
+        <a href="#" class="btn btn-circle bg-primary position-absolute" style="right: 0;"><i class="fas fa-file-pdf text-white"></i></a>
+    </div>
 </div>
 <!-- /.container-fluid -->
 

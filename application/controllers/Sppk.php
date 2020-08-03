@@ -38,6 +38,20 @@ class Sppk extends CI_Controller
         } else {
             $slug = url_title($this->input->post('nama'), '-', TRUE);
             $sarpras = $this->input->post('check[]');
+            $jumlah = count($sarpras);
+
+            if ($jumlah > 5) {
+                $dataStandart = 1;
+            } else if ($jumlah = 5) {
+                $dataStandart = 2;
+            } else if ($jumlah = 3) {
+                $dataStandart = 3;
+            } else if ($jumlah = 1) {
+                $dataStandart = 4;
+            } else {
+                $dataStandart = 5;
+            }
+
             $input = implode(", ", $sarpras);
             $data = [
                 'npsn' => $this->input->post('NPSN'),
@@ -47,6 +61,7 @@ class Sppk extends CI_Controller
                 'status' => $this->input->post('status'),
                 'akreditasi' => $this->input->post('akreditasi'),
                 'sarpras' => $input,
+                'ketersediaanSarpras' => $dataStandart,
                 'kurikulum' => $this->input->post('kurikulum'),
                 'website' => $this->input->post('website'),
                 'email' => $this->input->post('email'),
@@ -130,8 +145,10 @@ class Sppk extends CI_Controller
         $data['sekolah'] = $this->db->get('sekolah_pilihan')->result_array();
         $data['pilihan'] = $this->Sppk->countSkl($data['user']['id']);
         $data['sklp'] = $this->Sppk->getPilihan($data['user']['id']);
-        $id = $this->input->get('rkc');
-        $data['range'] = $this->Sppk->getJarak($id);
+        $data['range'] = $this->Sppk->getJarak($data['user']['id']);
+
+        // var_dump($data['sklp']);
+        // die;
 
         $data['jurusan'] = $this->Sppk->getJurusan();
         $this->load->view('templates/header', $data);
@@ -149,6 +166,7 @@ class Sppk extends CI_Controller
         $data['sklp'] = $this->Sppk->getPilihan($data['user']['id']);
 
         $this->form_validation->set_rules('status', 'Status', 'required');
+        $this->form_validation->set_rules('akreditasi', 'Akreditasi', 'required');
         $this->form_validation->set_rules('kurikulum', 'kurikulum', 'required');
         $this->form_validation->set_rules('sarpras', 'sarpras', 'required');
         $this->form_validation->set_rules('jarak', 'jarak', 'required');
@@ -160,6 +178,142 @@ class Sppk extends CI_Controller
             $this->load->view('sekolah/pembobotan', $data);
             $this->load->view('templates/footer');
         } else {
+            $jmlhAlternatif = $data['pilihan'];
+
+            //          Nilai Max dari database
+
+            $rmax = $this->Sppk->maxStatus($data['user']['id']);
+            $MAUTstatusmax = $rmax['status'];
+            $rmax2 = $this->Sppk->maxAkreditasi($data['user']['id']);
+            $MAUTakreditasimax = $rmax2['skor_akreditasi'];
+            $rmax3 = $this->Sppk->maxKurikulum($data['user']['id']);
+            $MAUTkurikulumMax = $rmax3['kurikulum'];
+            $rmax4 = $this->Sppk->maxJarak();
+            $MAUTJarakmax = $rmax4['jarak'];
+
+            //          Nilai Min dari Database
+
+            $rmin = $this->Sppk->minStatus($data['user']['id']);
+            $MAUTstatusmin = $rmin['status'];
+            $rmin2 = $this->Sppk->minAkreditasi($data['user']['id']);
+            $MAUTakreditasimin = $rmin2['skor_akreditasi'];
+            $rmin3 = $this->Sppk->minKurikulum($data['user']['id']);
+            $MAUTkurikulummin = $rmin3['kurikulum'];
+            $rmin4 = $this->Sppk->minJarak();
+            $MAUTJarakmin = $rmin4['jarak'];
+
+            // var_dump($jmlhAlternatif);
+            // die;
+
+            $bobotStatus = $this->input->post('status');
+            $bobotAkreditasi = $this->input->post('akreditasi');
+            $bobotSarpras = $this->input->post('sarpras');
+            $bobotKurikulum = $this->input->post('kurikulum');
+            $bobotJarak = $this->input->post('jarak');
+            $totalBobot = $bobotStatus + $bobotSarpras + $bobotKurikulum + $bobotJarak;
+
+            $id_user = $data['user']['id'];
+
+            $row = $data['sklp'];
+
+            foreach ($row as $re) : endforeach;
+
+            // var_dump($row);
+            // die;
+
+            $normalisasiStatus = $bobotStatus / $totalBobot;
+            $normalisasiAkreditasi = $bobotAkreditasi / $totalBobot;
+            $normalisasiSarpras = $bobotSarpras / $totalBobot;
+            $normalisasiKurikulum = $bobotKurikulum / $totalBobot;
+            $normalisasiJarak = $bobotJarak / $totalBobot;
+
+            $a = 0;
+
+            while ($r = $re) {
+                var_dump($r);
+                die;
+                $a++;
+                $data[$a]['status'] = $r['status'];
+                $data[$a]['akreditasi'] = $r['akreditasi'];
+                $r2 = $this->Sppk->standar($r['ketersediaanSarpras']);
+                $data[$a]['ketersediaanSarpras'] = $r2['skor'];
+                $data[$a]['kurikulum'] = $r['kurikulum'];
+                $data[$a]['jarak'] = $r['jarak'];
+            };
+
+            for ($b = 1; $b <= $jmlhAlternatif; $b++) {
+
+                $divStatus = $MAUTstatusmin - $MAUTstatusmax;
+                $tempStatus = 0;
+                if ($divStatus == 0) {
+                    $tempStatus = 1;
+                } else {
+                    $tempStatus = ($data[$b]['status'] - $MAUTstatusmax) / $divStatus;
+                }
+
+                $ndata[$b]['status'] = $tempStatus;
+
+
+                $divAkreditasi = $MAUTakreditasimin - $MAUTakreditasimax;
+                $tempAkreditasi = 0;
+                if ($divAkreditasi == 0) {
+                    $tempAkreditasi = 1;
+                } else {
+                    $tempAkreditasi = ($data[$b]['akreditasi'] - $MAUTakreditasimax) / $divAkreditasi;
+                }
+
+                $ndata[$b]['akreditasi'] = $tempAkreditasi;
+
+
+                $divKurikulum = $MAUTkurikulummin - $MAUTkurikulumMax;
+                $tempKurikulum = 0;
+                if ($divKurikulum == 0) {
+                    $tempKurikulum = 1;
+                } else {
+                    $tempKurikulum = ($data[$b]['kurikulum'] - $MAUTkurikulumMax) / $divKurikulum;
+                }
+
+                $ndata[$b]['kurikulum'] = $tempKurikulum;
+
+
+                $divJarak = $MAUTJarakmin - $MAUTJarakmax;
+                $tempJarak = 0;
+                if ($divJarak == 0) {
+                    $tempJarak = 1;
+                } else {
+                    $tempJarak = ($data[$b]['Jarak'] - $MAUTJarakmax) / $divJarak;
+                }
+
+                $ndata[$b]['Jarak'] = $tempJarak;
+            }
+
+            $id_user = $data['user']['id'];
+
+            $sekolah = $this->db->query("SELECT * FROM sekolah s,sekolah_pilihan sp FROM s.id = sp.id_sekolah AND sp.id_user = $id_user ORDER BY sp.id_pilih");
+
+            $d = 0;
+            while ($r = $sekolah) {
+                $d++;
+                $nilaiStatus = ($normalisasiStatus * $ndata[$d]['status']);
+                $nilaiAkreditasi = ($normalisasiAkreditasi * $ndata[$d]['akreditasi']);
+                $nilaiKurikulum = ($normalisasiKurikulum * $ndata[$d]['kurikulum']);
+                $nilaiSarpras = ($normalisasiSarpras * $ndata[$d]['ketersediaanSarpras']);
+                $nilaiJarak = ($normalisasiJarak * $ndata[$d]['jarak']);
+                $v[$d] = $nilaiStatus + $nilaiAkreditasi + $nilaiKurikulum + $nilaiSarpras + $nilaiJarak;
+                $nilai = $v[$d];
+
+                $data = [
+                    'id_sekolah' => $r['id'],
+                    'id_cart' => $r['id_pilih'],
+                    'id_user' => $id_user,
+                    'nilai' => $nilai
+                ];
+
+                // $this->db->insert('hasil_muat', $data);
+                var_dump($data);
+                die;
+            }
+
             redirect('sppk/rekomendasi');
         }
     }
@@ -259,24 +413,5 @@ class Sppk extends CI_Controller
             $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">Data Berhasil di ubah!</div>');
             redirect('sppk');
         }
-    }
-
-    public function jarak()
-    {
-        $data['title'] = 'Data Sekolah';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['sekolah'] = $this->db->get('sekolah')->result_array();
-        $data['jarak'] = $this->Sppk->getJarak();
-        $data['pilihan'] = $this->Sppk->countSkl($data['user']['id']);
-        $data['sklp'] = $this->Sppk->getPilihan($data['user']['id']);
-
-        // var_dump($data['jarak']);
-        // die;
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('sekolah/jarak', $data);
-        $this->load->view('templates/footer');
     }
 }

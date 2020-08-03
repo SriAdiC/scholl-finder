@@ -42,7 +42,7 @@
                             </a>
                         <?php endforeach; ?>
 
-                        <a class="dropdown-item text-center text-info" href="<?= base_url('sppk/jarak'); ?>">Lanjut Pembobotan</a>
+                        <a class="dropdown-item text-center text-info" href="<?= base_url('sppk/banding'); ?>">Lanjut Pembobotan</a>
                     </div>
                 </li>
 

@@ -26,9 +26,25 @@
         </thead>
         <tbody>
           <tr>
-            <td>Apakah <b>Status/Akreditasi</b> sangat penting bagi anda?</td>
+            <td>Apakah <b>Status</b> sangat penting bagi anda?</td>
             <td>
               <select class="form-control form-kriteria form-control-sm <?= (form_error('status')) ? 'is-invalid' : '' ?>" name="status">
+                <option value="">-- Pilih Bobot --</option>
+                <option value="5">Sangat Penting</option>
+                <option value="4">Penting</option>
+                <option value="3">Cukup Penting</option>
+                <option value="2">Kurang Penting</option>
+                <option value="1">Tidak Penting</option>
+              </select>
+              <div class="invalid-feedback">
+                Mohon pilih salah satu.
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Apakah <b>Akreditasi</b> sangat penting bagi anda?</td>
+            <td>
+              <select class="form-control form-kriteria form-control-sm <?= (form_error('status')) ? 'is-invalid' : '' ?>" name="akreditasi">
                 <option value="">-- Pilih Bobot --</option>
                 <option value="5">Sangat Penting</option>
                 <option value="4">Penting</option>

@@ -34,7 +34,7 @@
                             <tr class="data" data-sekolah="<?= $skl['slug']; ?>" data-id="<?= $skl['id']; ?>">
                                 <td><?= $skl['npsn']; ?></td>
                                 <td><?= $skl['nama']; ?></td>
-                                <td><?= $skl['status'] . ' / ' . $skl['akreditasi']; ?></td>
+                                <td><?= ($skl['status'] == 5) ? 'NEGERI' : 'SWASTA' ?> / <?= $skl['akreditasi']; ?></td>
                                 <td><?= $skl['alamat']; ?></td>
                                 <td><?= $skl['no_telp']; ?></td>
 
@@ -81,8 +81,8 @@
                                 <label for="status">Status</label>
                                 <select class="form-control" id="status" name="status">
                                     <option value="">Pilih Status</option>
-                                    <option value="NEGERI">NEGERI</option>
-                                    <option value="SWASTA">SWASTA</option>
+                                    <option value="5">NEGERI</option>
+                                    <option value="3">SWASTA</option>
                                 </select>
                             </div>
 
@@ -105,8 +105,8 @@
                             <label for="kurikulum">Kurikulum</label>
                             <select class="form-control" id="kurikulum" name="kurikulum">
                                 <option value="">Pilih Kurikulum</option>
-                                <option value="Kurikulum 2006 (KTSP)">Kurikulum 2006 (KTSP)</option>
-                                <option value="Kurikulum 2013">Kurikulum 2013</option>
+                                <option value="3">Kurikulum 2006 (KTSP)</option>
+                                <option value="5">Kurikulum 2013</option>
                             </select>
                         </div>
                         <div class="form-group">

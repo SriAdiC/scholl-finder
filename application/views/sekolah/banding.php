@@ -28,7 +28,7 @@
                 <tbody>
                   <tr>
                     <td style="width: 30%;">Status / Akreditasi</td>
-                    <td><?= $s['status']; ?> / <?= $s['akreditasi']; ?></td>
+                    <td><?= ($s['status'] == 5) ? 'NEGERI' : 'SWASTA'; ?> / <?= $s['akreditasi']; ?></td>
                   </tr>
                   <tr>
                     <td>Sarana Prasarana</td>
@@ -45,7 +45,6 @@
                   <tr>
                     <td>Jarak</td>
                     <td><?= $range['jarak']; ?> Km <span class="small text-danger">(Jarak di tentukan dari Kec. <?= $range['kecamatan']; ?> ke Kec. Balung)</span></td>
-
                   </tr>
                   <tr>
                     <td>Lokasi</td>
@@ -60,8 +59,8 @@
     </tbody>
   </table>
   <div class="button">
-    <a href="<?= base_url('sppk'); ?>" class="btn btn-secondary mb-3">Kembali</a>
-    <a href="<?= base_url('sppk/pembobotan'); ?>" class="btn btn-primary mb-3" style="position: relative; left: 0;">Mulai Pembobotan</a>
+    <a href="<?= base_url('sppk'); ?>" class="btn btn-secondary mb-3">Pilih Sekolah Lainnya</a>
+    <a href="<?= base_url('sppk/pembobotan'); ?>" class="btn btn-primary mb-3" style="position: relative; left: 0;">Lanjut Pembobotan</a>
   </div>
 
 </div>

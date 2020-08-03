@@ -32,7 +32,7 @@
                 </tr>
                 <tr>
                     <th class="bg-dark text-light text-left" scope="col">Status / Akreditasi</th>
-                    <td><?= $sekolah['status'] . ' / ' . $sekolah['akreditasi']; ?></td>
+                    <td><?= ($sekolah['status'] == 5) ? 'NEGERI' : 'SWASTA' ?> / <?= $sekolah['akreditasi']; ?></td>
                 </tr>
                 <tr>
                     <th class="bg-dark text-light text-left" scope="col">Website / Email</th>
@@ -44,7 +44,7 @@
                 </tr>
                 <tr>
                     <th class="bg-dark text-light text-left" scope="col">Kurikulum</th>
-                    <td><?= $sekolah['kurikulum']; ?></td>
+                    <td><?= ($sekolah['kurikulum'] = 5) ? 'Kurikulum 2013' : 'Kurikulum 2006 (KTSP)'; ?></td>
                 </tr>
                 <tr>
                     <th class="bg-dark text-light text-left" scope="col">Jurusan</th>
