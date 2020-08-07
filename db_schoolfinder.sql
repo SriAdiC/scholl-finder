@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Agu 2020 pada 06.26
+-- Waktu pembuatan: 07 Agu 2020 pada 13.53
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.3.11
 
@@ -192,7 +192,7 @@ INSERT INTO `sekolah_ekskul` (`id`, `id_ekskul`, `sekolah_id`) VALUES
 
 CREATE TABLE `sekolah_jurusan` (
   `id` int(11) NOT NULL,
-  `id_sekolah` int(11) NOT NULL,
+  `sekolah_id` int(11) NOT NULL,
   `id_jurusan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -200,7 +200,7 @@ CREATE TABLE `sekolah_jurusan` (
 -- Dumping data untuk tabel `sekolah_jurusan`
 --
 
-INSERT INTO `sekolah_jurusan` (`id`, `id_sekolah`, `id_jurusan`) VALUES
+INSERT INTO `sekolah_jurusan` (`id`, `sekolah_id`, `id_jurusan`) VALUES
 (1, 1, 1),
 (2, 1, 2),
 (3, 2, 1),
@@ -223,7 +223,7 @@ INSERT INTO `sekolah_jurusan` (`id`, `id_sekolah`, `id_jurusan`) VALUES
 
 CREATE TABLE `sekolah_pilihan` (
   `id_pilih` int(11) NOT NULL,
-  `id_sekolah` int(11) NOT NULL,
+  `sekolah_id` int(11) NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -231,7 +231,7 @@ CREATE TABLE `sekolah_pilihan` (
 -- Dumping data untuk tabel `sekolah_pilihan`
 --
 
-INSERT INTO `sekolah_pilihan` (`id_pilih`, `id_sekolah`, `id_user`) VALUES
+INSERT INTO `sekolah_pilihan` (`id_pilih`, `sekolah_id`, `id_user`) VALUES
 (12, 1, 8),
 (14, 4, 8),
 (15, 6, 8),
@@ -460,7 +460,7 @@ ALTER TABLE `sekolah_ekskul`
 --
 ALTER TABLE `sekolah_jurusan`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_idSekolah` (`id_sekolah`),
+  ADD KEY `fk_idSekolah` (`sekolah_id`),
   ADD KEY `fk_idJurusan` (`id_jurusan`);
 
 --
@@ -468,7 +468,7 @@ ALTER TABLE `sekolah_jurusan`
 --
 ALTER TABLE `sekolah_pilihan`
   ADD PRIMARY KEY (`id_pilih`),
-  ADD KEY `fk_sekolah` (`id_sekolah`),
+  ADD KEY `fk_sekolah` (`sekolah_id`),
   ADD KEY `fk_user` (`id_user`);
 
 --
@@ -635,13 +635,13 @@ ALTER TABLE `sekolah_ekskul`
 --
 ALTER TABLE `sekolah_jurusan`
   ADD CONSTRAINT `fk_idJurusan` FOREIGN KEY (`id_jurusan`) REFERENCES `jurusan` (`id_jurusan`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_idSekolah` FOREIGN KEY (`id_sekolah`) REFERENCES `sekolah` (`id_sekolah`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_idSekolah` FOREIGN KEY (`sekolah_id`) REFERENCES `sekolah` (`id_sekolah`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `sekolah_pilihan`
 --
 ALTER TABLE `sekolah_pilihan`
-  ADD CONSTRAINT `fk_sekolah` FOREIGN KEY (`id_sekolah`) REFERENCES `sekolah` (`id_sekolah`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_sekolah` FOREIGN KEY (`sekolah_id`) REFERENCES `sekolah` (`id_sekolah`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

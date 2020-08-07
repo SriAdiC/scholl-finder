@@ -7,9 +7,9 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Detail Sekolah</h1>
 
-    <div class="alert alert-info" role="alert">
+    <!-- <div class="alert alert-info" role="alert">
         Sebelum klik tombol bandingkan anda harus memilih kecamatan yang anda tinggali terlebih dahulu.
-    </div>
+    </div> -->
 
     <div class="detail col-md-12">
         <div class="text-center mb-3">
@@ -67,7 +67,7 @@
                     </td>
                 </tr>
             </table>
-            <a href="<?= base_url('sppk/simpanData/') . $sekolah['id']; ?>" class="btn btn-success mb-5" style="margin-left: 50%; transform: translateX(-50%);">Bandingkan</a>
+            <a href="<?= base_url('sppk/simpanData/') . $sekolah['id_sekolah']; ?>" class="btn btn-success mb-5" style="margin-left: 50%; transform: translateX(-50%);">Bandingkan</a>
         </div>
     </div>
 

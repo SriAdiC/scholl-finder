@@ -8,7 +8,7 @@ class Sppk_model extends CI_Model
     {
         $this->db->select('nama_jurusan');
         $this->db->from('sekolah_jurusan');
-        $this->db->join('sekolah', 'sekolah.id = sekolah_jurusan.id_sekolah', 'inner');
+        $this->db->join('sekolah', 'sekolah.id_sekolah = sekolah_jurusan.sekolah_id', 'inner');
         $this->db->join('jurusan', 'jurusan.id_jurusan = sekolah_jurusan.id_jurusan', 'inner');
         $this->db->where('id_sekolah', $id);
         $query = $this->db->get();
@@ -20,7 +20,7 @@ class Sppk_model extends CI_Model
     {
         $this->db->select('nama_jurusan');
         $this->db->from('sekolah_jurusan');
-        $this->db->join('sekolah', 'sekolah.id = sekolah_jurusan.id_sekolah', 'inner');
+        $this->db->join('sekolah', 'sekolah.id_sekolah = sekolah_jurusan.sekolah_id', 'inner');
         $this->db->join('jurusan', 'jurusan.id_jurusan = sekolah_jurusan.id_jurusan', 'inner');
         $query = $this->db->get();
 
@@ -31,7 +31,7 @@ class Sppk_model extends CI_Model
     {
         $this->db->select('nama_ekskul');
         $this->db->from('sekolah_ekskul');
-        $this->db->join('sekolah', 'sekolah.id = sekolah_ekskul.sekolah_id', 'inner');
+        $this->db->join('sekolah', 'sekolah.id_sekolah = sekolah_ekskul.sekolah_id', 'inner');
         $this->db->join('ekskul', 'ekskul.id = sekolah_ekskul.id_ekskul', 'inner');
         $this->db->where('sekolah_id', $id);
         $query = $this->db->get();
@@ -48,7 +48,7 @@ class Sppk_model extends CI_Model
         // }
         $this->db->select('*');
         $this->db->from('user');
-        $this->db->join('jarak', 'jarak.id = user.jarak', 'inner');
+        $this->db->join('jarak', 'jarak.id_jarak = user.jarak', 'inner');
         $this->db->where('user.id', $id);
         $query = $this->db->get();
 
@@ -59,7 +59,7 @@ class Sppk_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('sekolah_pilihan');
-        $this->db->join('sekolah', 'sekolah.id_sekolah = sekolah_pilihan.id_sekolah', 'inner');
+        $this->db->join('sekolah', 'sekolah.id_sekolah = sekolah_pilihan.sekolah_id', 'inner');
         $this->db->join('user', 'user.id = sekolah_pilihan.id_user', 'inner');
         $this->db->join('jarak', 'jarak.id_jarak = user.jarak', 'inner');
         $this->db->where('id_user', $id_user);
@@ -77,7 +77,7 @@ class Sppk_model extends CI_Model
 
     public function delete($id)
     {
-        return $this->db->delete('sekolah', ['id' => $id]);
+        return $this->db->delete('sekolah', ['id_sekolah' => $id]);
     }
 
     public function standar($id_standar)

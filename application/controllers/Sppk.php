@@ -86,11 +86,11 @@ class Sppk extends CI_Controller
         $id = $this->input->get('key');
         $data['title'] = 'Data Sekolah';
 
-        $data['sekolah'] = $this->db->get_where('sekolah', ['id' => $id])->row_array();
+        $data['sekolah'] = $this->db->get_where('sekolah', ['id_sekolah' => $id])->row_array();
 
         $data['jurusan'] = $this->Sppk->getDataJurusan($id);
 
-        $data['range'] = $this->Sppk->getJarak();
+        $data['range'] = $this->Sppk->getJarak($data['user']['id']);
 
         $data['ekstra'] = $this->Sppk->getEskul($id);
 

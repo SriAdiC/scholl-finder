@@ -31,7 +31,7 @@
                     </thead>
                     <tbody>
                         <?php foreach ($sekolah as $skl) : ?>
-                            <tr class="data" data-sekolah="<?= $skl['slug']; ?>" data-id="<?= $skl['id']; ?>">
+                            <tr class="data" data-sekolah="<?= $skl['slug']; ?>" data-id="<?= $skl['id_sekolah']; ?>">
                                 <td><?= $skl['npsn']; ?></td>
                                 <td><?= $skl['nama']; ?></td>
                                 <td><?= ($skl['status'] == 5) ? 'NEGERI' : 'SWASTA' ?> / <?= $skl['akreditasi']; ?></td>
@@ -42,10 +42,10 @@
                                 <td>
                                     <div class="d-flex">
                                         <?php if ($this->session->userdata('role_id') == 1) : ?>
-                                            <a href="<?= base_url('sppk/edit/') . $skl['id']; ?>" class="btn btn-warning mb-5 mr-2">Edit</a>
-                                            <a href="<?= base_url('sppk/delete/') . $skl['id']; ?>" class="btn btn-danger mb-5 hapus">Delete</a>
+                                            <a href="<?= base_url('sppk/edit/') . $skl['id_sekolah']; ?>" class="btn btn-warning mb-5 mr-2">Edit</a>
+                                            <a href="<?= base_url('sppk/delete/') . $skl['id_sekolah']; ?>" class="btn btn-danger mb-5 hapus">Delete</a>
                                         <?php endif; ?>
-                                        <a href="<?= base_url('sppk/simpanData/') . $skl['id']; ?>" class="btn btn-success mb-5 ml-2">Bandingkan</a>
+                                        <a href="<?= base_url('sppk/simpanData/') . $skl['id_sekolah']; ?>" class="btn btn-success mb-5 ml-2">Bandingkan</a>
                                     </div>
                                 </td>
                             </tr>
