@@ -107,15 +107,15 @@ class Sppk extends CI_Controller
 
     public function simpanData($id)
     {
-        $sekolah = $this->db->get_where('sekolah', ['id' => $id])->row_array();
+        $sekolah = $this->db->get_where('sekolah', ['id_sekolah' => $id])->row_array();
         $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $sklp = $this->db->get_where('sekolah_pilihan', ['id_sekolah' => $id])->row_array();
+        $sklp = $this->db->get_where('sekolah_pilihan', ['sekolah_id' => $id])->row_array();
 
         // var_dump($sklp);
         // die;
 
         $data = [
-            'id_sekolah' => $id,
+            'sekolah_id' => $id,
             'id_user' => $user['id']
         ];
 

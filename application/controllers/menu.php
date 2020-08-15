@@ -13,8 +13,8 @@ class menu extends CI_Controller
     public function index()
     {
         $data['title'] = 'Menu Management';
-        $data['sklp'] = $this->Sppk->getPilihan($data['user']['id']);
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['sklp'] = $this->Sppk->getPilihan($data['user']['id']);
 
         $data['menu'] = $this->db->get('user_menu')->result_array();
         $data['pilihan'] = $this->Sppk->countSkl($data['user']['id']);
