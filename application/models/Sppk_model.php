@@ -87,19 +87,19 @@ class Sppk_model extends CI_Model
 
     public function maxStatus($id_user)
     {
-        $query = "SELECT s.status FROM sekolah s, sekolah_pilihan t WHERE t.id_sekolah = s.id_sekolah AND id_user = '$id_user' ORDER BY s.status DESC LIMIT 1";
+        $query = "SELECT s.status FROM sekolah s, sekolah_pilihan t WHERE t.sekolah_id = s.id_sekolah AND id_user = '$id_user' ORDER BY s.status DESC LIMIT 1";
         return $this->db->query($query)->row_array();
     }
 
     public function maxAkreditasi($id_user)
     {
-        $query = "SELECT s.skor_akreditasi FROM sekolah s, sekolah_pilihan t WHERE t.id_sekolah = s.id_sekolah AND id_user = '$id_user' ORDER BY s.skor_akreditasi DESC LIMIT 1";
+        $query = "SELECT s.skor_akreditasi FROM sekolah s, sekolah_pilihan t WHERE t.sekolah_id = s.id_sekolah AND id_user = '$id_user' ORDER BY s.skor_akreditasi DESC LIMIT 1";
         return $this->db->query($query)->row_array();
     }
 
     public function maxKurikulum($id_user)
     {
-        $query = "SELECT s.kurikulum FROM sekolah s, sekolah_pilihan t WHERE t.id_sekolah = s.id_sekolah AND id_user = '$id_user' ORDER BY s.kurikulum DESC LIMIT 1";
+        $query = "SELECT s.kurikulum FROM sekolah s, sekolah_pilihan t WHERE t.sekolah_id = s.id_sekolah AND id_user = '$id_user' ORDER BY s.kurikulum DESC LIMIT 1";
         return $this->db->query($query)->row_array();
     }
 
@@ -112,19 +112,19 @@ class Sppk_model extends CI_Model
 
     public function minKurikulum($id_user)
     {
-        $query = "SELECT s.kurikulum FROM sekolah s, sekolah_pilihan t WHERE t.id_sekolah = s.id_sekolah AND id_user = '$id_user' ORDER BY s.kurikulum ASC LIMIT 1";
+        $query = "SELECT s.kurikulum FROM sekolah s, sekolah_pilihan t WHERE t.sekolah_id = s.id_sekolah AND id_user = '$id_user' ORDER BY s.kurikulum ASC LIMIT 1";
         return $this->db->query($query)->row_array();
     }
 
     public function minStatus($id_user)
     {
-        $query = "SELECT s.status FROM sekolah s, sekolah_pilihan t WHERE t.id_sekolah = s.id_sekolah AND id_user = '$id_user' ORDER BY s.status ASC LIMIT 1";
+        $query = "SELECT s.status FROM sekolah s, sekolah_pilihan t WHERE t.sekolah_id = s.id_sekolah AND id_user = '$id_user' ORDER BY s.status ASC LIMIT 1";
         return $this->db->query($query)->row_array();
     }
 
     public function minAkreditasi($id_user)
     {
-        $query = "SELECT s.skor_akreditasi FROM sekolah s, sekolah_pilihan t WHERE t.id_sekolah = s.id_sekolah AND id_user = '$id_user' ORDER BY s.skor_akreditasi ASC LIMIT 1";
+        $query = "SELECT s.skor_akreditasi FROM sekolah s, sekolah_pilihan t WHERE t.sekolah_id = s.id_sekolah AND id_user = '$id_user' ORDER BY s.skor_akreditasi ASC LIMIT 1";
         return $this->db->query($query)->row_array();
     }
 

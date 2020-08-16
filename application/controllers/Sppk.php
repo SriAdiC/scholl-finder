@@ -289,7 +289,7 @@ class Sppk extends CI_Controller
 
             $id_user = $data['user']['id'];
 
-            $sekolah = $this->db->query("SELECT * FROM sekolah s,sekolah_pilihan sp FROM s.id = sp.id_sekolah AND sp.id_user = $id_user ORDER BY sp.id_pilih");
+            $sekolah = $this->db->query("SELECT * FROM sekolah s,sekolah_pilihan sp FROM s.id = sp.sekolah_id AND sp.id_user = $id_user ORDER BY sp.id_pilih");
 
             $d = 0;
             while ($r = $sekolah) {
