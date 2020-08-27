@@ -230,8 +230,8 @@ class Sppk extends CI_Controller
             $a = 0;
 
             while ($r = $re) {
-                var_dump($r);
-                die;
+                // var_dump($r);
+                // die;
                 $a++;
                 $data[$a]['status'] = $r['status'];
                 $data[$a]['akreditasi'] = $r['akreditasi'];
@@ -309,11 +309,11 @@ class Sppk extends CI_Controller
                     'nilai' => $nilai
                 ];
 
-                // $this->db->insert('hasil_muat', $data);
-                var_dump($data);
-                die;
+                $this->db->insert('hasil_muat', $data);
+                // var_dump($data);
+                // die;
+                echo 'Berhasil! Hore';
             }
-
             redirect('sppk/rekomendasi');
         }
     }
