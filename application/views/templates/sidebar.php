@@ -66,6 +66,12 @@
         <?php endforeach; ?>
 
         <li class="nav-item">
+            <a class="nav-link" href="../../kuisioner" target="_blank">
+                <i class="fas fa-fw fa-question"></i>
+                <span>Kuisioner</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link logout" href="<?= base_url('auth/logout'); ?>">
                 <i class="fas fa-fw fa-sign-out-alt"></i>
                 <span>LogOut</span>
