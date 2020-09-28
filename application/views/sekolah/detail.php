@@ -67,6 +67,9 @@
                     </td>
                 </tr>
             </table>
+            <?php if ($this->session->userdata('role_id') == 1) : ?>
+                <a href="<?= base_url('sppk/delete/') . $sekolah['id_sekolah']; ?>" class="btn btn-danger mb-5 hapus">Delete</a>
+            <?php endif; ?>
             <a href="<?= base_url('sppk/simpanData/') . $sekolah['id_sekolah']; ?>" class="btn btn-success mb-5" style="margin-left: 50%; transform: translateX(-50%);">Bandingkan</a>
         </div>
     </div>
