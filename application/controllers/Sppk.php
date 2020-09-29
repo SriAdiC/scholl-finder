@@ -350,13 +350,14 @@ class Sppk extends CI_Controller
         $data['jurusan'] = $this->Sppk->getDataJurusan($id);
         $data['sklp'] = $this->Sppk->getPilihan($data['user']['id']);
 
+
         // $data['range'] = $this->Sppk->getJarak();
 
         $data['ekstra'] = $this->Sppk->getEskul($id);
 
         $this->form_validation->set_rules('nama', 'Nama', 'required');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required');
-        // $this->form_validation->set_rules('kurikulum', 'Kurikulum', 'required');
+        $this->form_validation->set_rules('kurikulum', 'Kurikulum', 'required');
         $this->form_validation->set_rules('npsn', 'NPSN', 'required');
 
         if ($this->form_validation->run() == false) {
@@ -369,48 +370,54 @@ class Sppk extends CI_Controller
             $nama = $this->input->post('nama');
             $npsn = $this->input->post('npsn');
             $alamat = $this->input->post('alamat');
-            // $status = $this->input->post('status');
-            // $akreditasi = $this->input->post('akreditasi');
-            // $kurikulum = $this->input->post('kurikulum');
+            $status = $this->input->post('status');
+            $akreditasi = $this->input->post('akreditasi');
+            $kurikulum = $this->input->post('kurikulum');
+            $sarpras = $this->input->post('check[]');
+
+            $input = implode(", ", $sarpras);
+
+            //jika ada gambar yg diupload
+            $upload_image = $_FILES['foto']['name'];
+            var_dump($upload_image);
+            die;
+            if ($upload_image) {
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size'] = '2048';
 
 
-            // //jika ada gambar yg diupload
-            // $upload_image = $_FILES['foto']['name'];
-            // if ($upload_image) {
-            //     $config['allowed_types'] = 'gif|jpg|png';
-            //     $config['max_size'] = '2048';
+                $config['upload_path'] = './assets/img/profile';
+                $this->load->library('upload', $config);
 
+                if ($this->upload->do_upload('image')) {
 
-            //     $config['upload_path'] = './assets/img/profile';
-            //     $this->load->library('upload', $config);
+                    $old_image = $data['sekolah']['image'];
+                    if ($old_image != 'default.png') {
+                    }
+                    unlink(FCPATH . 'assets/img/sekolah/' . $old_image);
 
-            //     if ($this->upload->do_upload('foto')) {
+                    $new_image = $this->upload->data('file_name');
+                    $this->db->set('foto', $new_image);
+                } else {
+                    echo $this->upload->display_errors();
+                }
+                $data = [
+                    'npsn' => $npsn,
+                    'nama' => $nama,
+                    'alamat' => $alamat,
+                    'status' => $status,
+                    'akreditasi' => $akreditasi,
+                    'kurikulum' => $kurikulum,
+                    'sarpras' => $input
+                ];
 
-            //         $old_image = $data['sekolah']['foto'];
-            //         if ($old_image != 'default.png') {
-            //         }
-            //         unlink(FCPATH . 'assets/img/sekolah/' . $old_image);
+                $this->db->set($data);
+                $this->db->where('id_sekolah', $id);
+                $this->db->update('sekolah');
 
-            //         $new_image = $this->upload->data('file_name');
-            //         $this->db->set('foto', $new_image);
-            //     } else {
-            //         echo $this->upload->display_errors();
-            //     }
-            $data = [
-                'npsn' => $npsn,
-                'nama' => $nama,
-                'alamat' => $alamat,
-                // 'status' => $status,
-                // 'akreditasi' => $akreditasi,
-                // 'kurikulum' => $kurikulum
-            ];
-
-            $this->db->set($data);
-            $this->db->where('id_sekolah', $id);
-            $this->db->update('sekolah');
-
-            $this->session->set_flashdata('msg', 'Data Berhasil Diubah');
-            redirect('sppk');
+                $this->session->set_flashdata('msg', 'Data Berhasil Diubah');
+                redirect('sppk');
+            }
         }
     }
 }
